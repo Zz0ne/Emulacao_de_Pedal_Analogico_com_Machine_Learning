@@ -1,11 +1,11 @@
-# [Título do Projecto]
+# Emulação de Pedal Analógico com Machine Learning 
 
-> Subtítulo ou tagline curta — o problema que resolve e para quem.
+>Emulação digital de hardware analógico de áudio em tempo real, utilizando Machine Learning com Python e C++. 
 
-**Estudante:** [Nome] · [Número]  
+**Estudante:** Nuno Rodrigues · 2201022
 **Orientador:** Pedro Pestana  
 **UC:** Projecto de Engenharia Informática · Universidade Aberta · 2025/26  
-**Repositório:** [URL deste repositório]
+**Repositório:** https://github.com/Zz0ne/Emulacao_de_Pedal_Analogico_com_Machine_Learning 
 
 ---
 
@@ -14,8 +14,6 @@
 <!-- Actualizar a cada entrega. Escolher um estado e apagar os outros. -->
 
 🟢 **Verde** — A correr conforme planeado.  
-🟡 **Amarelo** — [Descrever o que está em risco ou bloqueado, numa linha.]  
-🔴 **Vermelho** — [Descrever o problema crítico, numa linha.]
 
 ---
 
@@ -24,9 +22,6 @@
 <!-- Lista das funcionalidades do MVP que estão funcionais. -->
 <!-- Ser específico: não "o login está feito" mas "autenticação por email/password com JWT, sessão persistente em localStorage." -->
 
-- [ ] Funcionalidade A — [descrição breve]
-- [ ] Funcionalidade B — [descrição breve]
-- [ ] Funcionalidade C — [descrição breve]
 
 ---
 
@@ -34,9 +29,13 @@
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
 
-- [ ] Funcionalidade D — [estado e razão do atraso se aplicável]
-- [ ] Funcionalidade E — [estado]
-
+- [ ] **Setup de Infraestrutura** — Configuração do repositório de acordo com as normas da UC (docs, scope, architecture).
+- [ ] **Boilerplate JUCE** — Projeto base configurado via CMake; compilação bem-sucedida dos formatos VST3 e Standalone.
+- [ ] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
+- [ ] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
+- [ ] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
+- [ ] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
+- [ ] **WebApp de Validação** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
 ---
 
 ## Como instalar e correr
@@ -46,33 +45,32 @@
 ### Pré-requisitos
 
 ```
-[ex: Node.js 20+, Python 3.11+, Docker, etc.]
+- Compilador C++ (GCC, Clang, MSVC)
+- CMake (versão 3.15 ou superior)
+- DAW compatível com formato vst3 (ex: Reaper, Ableton Live)
 ```
 
 ### Instalação
 
 ```bash
 # 1. Clonar o repositório
-git clone [URL]
-cd [nome-do-repo]
+git clone https://github.com/Zz0ne/Emulacao_de_Pedal_Analogico_com_Machine_Learning 
+cd  Emulacao_de_Pedal_Analogico_com_Machine_Learning/alpha_omicron_sim_plugin
 
-# 2. Instalar dependências
-[ex: npm install / pip install -r requirements.txt]
+# 2. Compilar plugin
+cmake -B cmake-build -DCMAKE_BUILD_TYPE=Debug
+cmake --build cmake-build --config Debug
 
-# 3. Configurar variáveis de ambiente
-cp .env.example .env
-# Editar .env com os valores correctos
-
-# 4. Correr
-[ex: npm run dev / python app.py]
+```
+Após a compilação, o executável Standalone e o ficheiro .vst3 estarão disponíveis na pasta:
+```
+ # TODO: Completar
+   ./cmake-build/[Nome_do_Artefacto]_artefacts/Debug/
 ```
 
 ### Acesso
 
-```
-[ex: http://localhost:3000]
-[Credenciais de teste se aplicável]
-```
+O ficheiro VST3 pode ser carregado em qualquer DAW compatível (ex: Reaper, Ableton Live).
 
 ---
 
@@ -80,10 +78,11 @@ cp .env.example .env
 
 <!-- 2 a 4 decisões relevantes com justificação breve. Para o detalhe completo, ver docs/architecture/adr/. -->
 
-| Decisão | Alternativa considerada | Razão da escolha |
-|---------|------------------------|-----------------|
-| [ex: PostgreSQL] | [ex: MongoDB] | [ex: dados relacionais com integridade referencial necessária] |
-| [ex: React] | [ex: Vue] | [ex: maior familiaridade da equipa, ecossistema] |
+| Decisão              | Alternativa considerada | Razão da escolha |
+|----------------------|-------------------------|-----------------|
+| C++ e Framework JUCE | NA                      | O processamento de áudio em tempo real exige gestão manual de memória para evitar paragens na audio thread. O JUCE foi escolhido por abstrair a complexidade de compilar formatos de plugin VST3/AU multiplataforma. |
+| Biblioteca RTNeural  | libtorch                | A API nativa do PyTorch em C++ é demasiado pesada e aloca memória dinamicamente, causando "engasgos" no áudio. A RTNeural foi desenhada especificamente para inferência rápida e leve na audio thread. |
+| Treino com PyTorch    | NA                      | O ecossistema Python é o standard da indústria para prototipagem de IA. Permite utilizar o Google Colab para treinar o modelo na cloud usando GPUs sem exigir hardware local potente. |
 
 ---
 
@@ -94,18 +93,16 @@ cp .env.example .env
 
 ### Referências técnicas
 
-- [Referência 1]
-- [Referência 2]
+- The Audio Programmer - How to Make Your First VST Plugin
 
 ### Ferramentas de IA utilizadas
 
 <!-- Obrigatório declarar. Não é penalizado. -->
 
-| Ferramenta | Para que foi usada |
-|-----------|-------------------|
-| [ex: GitHub Copilot] | [ex: autocompletar código boilerplate] |
-| [ex: Claude] | [ex: explorar alternativas de arquitectura] |
+| Ferramenta | Para que foi usada                                           |
+|-----------|--------------------------------------------------------------|
+| Gemini | Brainstorming inicial de ideias de projeto, troubleshooting. |
 
 ---
 
-*Última actualização: [data] · [semana do semestre, ex: Sem. 7]*
+*Última actualização: 25-03-2026 · Sem 1*
