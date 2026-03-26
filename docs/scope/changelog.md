@@ -8,9 +8,14 @@
 
 ## Sem. 1 · 17–21 mar
 
-**Feito:** [O que foi concluído esta semana]  
-**Bloqueou:** [O que impediu progresso, ou "Nada"]  
-**Próxima semana:** [O que está planeado]
+**Feito:** 
+ - Submissão da Proposta do projeto
+ - c4 nível 1
+**Bloqueou:** 
+ - Nada  
+**Próxima semana:**
+ - Setup do repositório no github
+ - Boilerplate do plugin no JUCE
 
 ---
 
