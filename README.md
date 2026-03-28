@@ -22,6 +22,8 @@
 <!-- Lista das funcionalidades do MVP que estão funcionais. -->
 <!-- Ser específico: não "o login está feito" mas "autenticação por email/password com JWT, sessão persistente em localStorage." -->
 
+- [x] **Setup de Infraestrutura** — Configuração do repositório de acordo com as normas da UC (docs, scope, architecture).
+- [x] **Boilerplate JUCE** — Projeto base configurado via CMake; compilação bem-sucedida dos formatos VST3 e Standalone.
 
 ---
 
@@ -29,8 +31,6 @@
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
 
-- [ ] **Setup de Infraestrutura** — Configuração do repositório de acordo com as normas da UC (docs, scope, architecture).
-- [ ] **Boilerplate JUCE** — Projeto base configurado via CMake; compilação bem-sucedida dos formatos VST3 e Standalone.
 - [ ] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
 - [ ] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
 - [ ] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
