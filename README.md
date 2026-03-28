@@ -105,4 +105,4 @@ O ficheiro VST3 pode ser carregado em qualquer DAW compatível (ex: Reaper, Able
 
 ---
 
-*Última actualização: 25-03-2026 · Sem 1*
+*Última actualização: 28-03-2026 · Sem 2*
