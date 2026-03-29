@@ -21,9 +21,14 @@
 
 ## Sem. 2 · 24–28 mar
 
-**Feito:**  
-**Bloqueou:**  
+**Feito:**
+ - Setup do repositório no github
+ - Boilerplate do plugin no JUCE
+**Bloqueou:**
+ - Nada
 **Próxima semana:**
+ - UI básico no JUCE
+ - Captura de pares Dry/Wet com o Darkglass Alpha Omicron
 
 ---
 
