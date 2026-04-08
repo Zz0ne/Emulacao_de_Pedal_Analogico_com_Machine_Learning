@@ -34,9 +34,13 @@
 
 ## Sem. 3 · 31 mar–4 abr
 
-**Feito:**  
-**Bloqueou:**  
+**Feito:**
+ - Pesquisa sobre alguns temas fundamentais sobre redes neurais.
+**Bloqueou:**
+ - Nada
 **Próxima semana:**
+ - UI básico no JUCE
+ - Captura de pares Dry/Wet com o Darkglass Alpha Omicron
 
 ---
 
