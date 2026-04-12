@@ -47,8 +47,13 @@
 ## Sem. 4 · 7–11 abr
 
 **Feito:**  
-**Bloqueou:**  
+ - Continuação da pesquisa sobre alguns temas fundamentais sobre redes neurais.
+ - UI básico no JUCE
+**Bloqueou:**
+ - Perdi a fonte de alimentação do Darkglass Alpha Omicron, sem isso, não há captura. Terei de daquirir um durante a próxima semana.
 **Próxima semana:**
+ - Captura de pares Dry/Wet com o Darkglass Alpha Omicron
+ - Pipeline de treino PyTorch
 
 ---
 
