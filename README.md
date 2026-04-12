@@ -24,14 +24,13 @@
 
 - [x] **Setup de Infraestrutura** — Configuração do repositório de acordo com as normas da UC (docs, scope, architecture).
 - [x] **Boilerplate JUCE** — Projeto base configurado via CMake; compilação bem-sucedida dos formatos VST3 e Standalone.
+- [x] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
 
 ---
 
 ## O que está pendente
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
-
-- [ ] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
 - [ ] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
 - [ ] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
 - [ ] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
@@ -82,7 +81,7 @@ O ficheiro VST3 pode ser carregado em qualquer DAW compatível (ex: Reaper, Able
 |----------------------|-------------------------|-----------------|
 | C++ e Framework JUCE | NA                      | O processamento de áudio em tempo real exige gestão manual de memória para evitar paragens na audio thread. O JUCE foi escolhido por abstrair a complexidade de compilar formatos de plugin VST3/AU multiplataforma. |
 | Biblioteca RTNeural  | libtorch                | A API nativa do PyTorch em C++ é demasiado pesada e aloca memória dinamicamente, causando "engasgos" no áudio. A RTNeural foi desenhada especificamente para inferência rápida e leve na audio thread. |
-| Treino com PyTorch    | NA                      | O ecossistema Python é o standard da indústria para prototipagem de IA. Permite utilizar o Google Colab para treinar o modelo na cloud usando GPUs sem exigir hardware local potente. |
+| Treino com PyTorch    | TensorFlow                      | O ecossistema Python é o standard da indústria para prototipagem de IA. Permite utilizar o Google Colab para treinar o modelo na cloud usando GPUs sem exigir hardware local potente. |
 
 ---
 
@@ -104,5 +103,3 @@ O ficheiro VST3 pode ser carregado em qualquer DAW compatível (ex: Reaper, Able
 | Gemini | Brainstorming inicial de ideias de projeto, troubleshooting. |
 
 ---
-
-*Última actualização: 28-03-2026 · Sem 2*
