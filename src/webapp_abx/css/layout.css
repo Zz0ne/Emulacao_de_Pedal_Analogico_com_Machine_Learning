@@ -1,0 +1,34 @@
+.page-wrap {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+header.site {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border-weak);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+main {
+    padding: 2.5rem 0 3rem;
+    min-height: calc(100vh - 180px);
+}
+
+footer.site {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-weak);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+}
+
+/* Media query básica para mobile */
+@media (max-width: 640px) {
+    h1 { font-size: 24px; }
+}
