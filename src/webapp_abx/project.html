@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto · ABX</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="site">
+    <a href="index.html" class="brand">abx_test // alpha_omicron</a>
+    <nav class="site" aria-label="navegação principal">
+      <a href="project.html" class="active">projeto</a>
+      <a href="instructions.html">instruções</a>
+      <a href="test.html">teste</a>
+      <a href="results.html">resultados</a>
+      <a href="about.html">sobre</a>
+      <a href="contact.html">contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Contexto do projeto</h1>
+    <p class="lead">
+      Este site é uma das três componentes do projeto final de licenciatura
+      em Engenharia Informática. As outras duas são um plugin de áudio em C++
+      e um pipeline de Machine Learning em Python.
+    </p>
+
+    <section>
+      <h2>O que é o Alpha Omicron</h2>
+      <p>
+        O <em>Darkglass Alpha Omicron</em> é um pedal de distorção analógico
+        para baixo elétrico, conhecido pelo timbre agressivo e pela resposta
+        harmónica complexa. O seu circuito combina múltiplos andares de ganho
+        com filtros específicos, tornando-o difícil de modelar por Processamento
+        Digital de Sinal clássico de forma exata.
+      </p>
+    </section>
+
+    <section>
+      <h2>Porquê usar Machine Learning</h2>
+      <p>
+        A abordagem tradicional (DSP) requer engenharia reversa do circuito:
+        componente a componente, construir equações que repliquem o comportamento.
+        É trabalhoso, caro, e cada não-linearidade subtil exige modelação dedicada.
+      </p>
+      <p>
+        O método alternativo — <strong>black-box modeling</strong> — ignora o
+        circuito interno. Estimula-se o hardware com sinais conhecidos, captam-se
+        as respostas, e treina-se uma rede neuronal a aprender o mapeamento
+        entrada-saída. O que entra e o que sai é tudo o que importa.
+      </p>
+    </section>
+
+    <section>
+      <h2>Arquitetura geral</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Plugin C++ (JUCE)</h3>
+          <p>VST3/AU que corre em qualquer DAW. Usa a biblioteca RTNeural
+            para inferência da rede na audio thread.</p>
+        </div>
+        <div class="card">
+          <h3>Pipeline Python (PyTorch)</h3>
+          <p>Captura de pares Dry/Wet, treino da rede, exportação de pesos
+            num formato que o plugin consome.</p>
+        </div>
+        <div class="card">
+          <h3>WebApp ABX (este site)</h3>
+          <p>Validação percetual: testar se ouvintes humanos conseguem
+            distinguir o plugin do hardware.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <p>projeto final · lei · nuno rodrigues · 2201022</p>
+  </footer>
+
+</div>
+</body>
+</html>

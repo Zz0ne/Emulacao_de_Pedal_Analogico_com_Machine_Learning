@@ -57,3 +57,26 @@ p {
     font-size: 15px;
     margin-bottom: 1rem;
 }
+
+p.lead {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+section {
+    margin-bottom: 2.5rem;
+}
+
+section h2 {
+    margin-bottom: 1rem;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
