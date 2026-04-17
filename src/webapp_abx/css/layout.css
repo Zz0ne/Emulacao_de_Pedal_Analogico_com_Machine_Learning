@@ -28,7 +28,47 @@ footer.site {
     letter-spacing: 0.05em;
 }
 
+.brand {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.brand:hover {
+    text-decoration: none;
+}
+
+/* Navegação */
+nav.site {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+nav.site a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color var(--transition), border-color var(--transition);
+}
+
+nav.site a:hover {
+    color: var(--text-primary);
+}
+
+nav.site a.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+
 /* Media query básica para mobile */
 @media (max-width: 640px) {
     h1 { font-size: 24px; }
+    nav.site { gap: 0.75rem; }
+    nav.site a { font-size: 13px; }
 }
