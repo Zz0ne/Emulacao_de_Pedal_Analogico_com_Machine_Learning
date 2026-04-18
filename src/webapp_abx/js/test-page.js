@@ -1,0 +1,121 @@
+/* ============================================================
+   test-page.js — controlador da página test.html
+   Faz a ponte entre DOM e AbxEngine.
+   ============================================================ */
+
+(function () {
+    'use strict';
+
+    // Referências ao DOM
+    const screens = {
+        intro: document.getElementById('screen-intro'),
+        test:  document.getElementById('screen-test'),
+        done:  document.getElementById('screen-done')
+    };
+
+    const btnStart   = document.getElementById('btn-start');
+    const btnSubmit  = document.getElementById('btn-submit');
+    const playButtons   = document.querySelectorAll('.play-btn');
+    const answerButtons = document.querySelectorAll('.answer-btn');
+    const progressBar   = document.getElementById('progress-bar');
+    const trialCurrent  = document.getElementById('trial-current');
+    const trialTotal    = document.getElementById('trial-total');
+    const sessionId     = document.getElementById('session-id');
+
+    // Estado local
+    let session = null;
+    let selectedAnswer = null;
+
+    // Helpers de UI
+    function show(screenName) {
+        Object.keys(screens).forEach(function (key) {
+            screens[key].hidden = (key !== screenName);
+        });
+    }
+
+    function renderProgress() {
+        progressBar.innerHTML = '';
+        for (let i = 0; i < session.totalTrials; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'progress-cell';
+            if (i < session.currentIndex) {
+                cell.classList.add('done');
+            } else if (i === session.currentIndex) {
+                cell.classList.add('current');
+            }
+            progressBar.appendChild(cell);
+        }
+    }
+
+    function loadCurrentTrial() {
+        trialCurrent.textContent = String(session.currentIndex + 1).padStart(2, '0');
+        trialTotal.textContent   = String(session.totalTrials).padStart(2, '0');
+        sessionId.textContent    = session.id;
+        renderProgress();
+
+        // reset da UI do trial
+        selectedAnswer = null;
+        answerButtons.forEach(function (b) { b.classList.remove('selected'); });
+        btnSubmit.disabled = true;
+    }
+
+    // Handlers de eventos
+    function handleStart() {
+        AbxEngine.clearSession(); // descarta qualquer sessão pendente
+        session = AbxEngine.createSession();
+        show('test');
+        loadCurrentTrial();
+    }
+
+    function handlePlay(btn) {
+        const sample = btn.getAttribute('data-sample');
+        const wasPlaying = btn.classList.contains('playing');
+        playButtons.forEach(function (b) { b.classList.remove('playing'); });
+        if (!wasPlaying) {
+            btn.classList.add('playing');
+            console.log('reproduzir sample', sample);
+        }
+    }
+
+    function handleAnswerSelect(btn) {
+        selectedAnswer = btn.getAttribute('data-answer');
+        answerButtons.forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        btnSubmit.disabled = false;
+    }
+
+    function handleSubmit() {
+        if (!selectedAnswer) return;
+
+        const result = AbxEngine.submitAnswer(session, selectedAnswer);
+
+        if (result.done) {
+            show('done');
+        } else {
+            loadCurrentTrial();
+        }
+    }
+
+    // ---------- Wiring ----------
+
+    btnStart.addEventListener('click', handleStart);
+    btnSubmit.addEventListener('click', handleSubmit);
+
+    playButtons.forEach(function (b) {
+        b.addEventListener('click', function () { handlePlay(b); });
+    });
+
+    answerButtons.forEach(function (b) {
+        b.addEventListener('click', function () { handleAnswerSelect(b); });
+    });
+
+    // ---------- Retomar sessão em curso, se existir ----------
+    const existing = AbxEngine.loadSession();
+    if (existing && !existing.finishedAt
+        && existing.currentIndex < existing.totalTrials) {
+        session = existing;
+        show('test');
+        loadCurrentTrial();
+    }
+
+})();
