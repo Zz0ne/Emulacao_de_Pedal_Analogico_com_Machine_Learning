@@ -14,3 +14,88 @@
     font-size: 14px;
     margin-bottom: 0;
 }
+
+/* card clicável */
+.card-link {
+    display: block;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-weak);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.card-link:hover {
+    border-color: var(--border-strong);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.card-link h3 {
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+.card-link p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.card-link.featured {
+    border-color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.card-link.featured:hover {
+    transform: translateY(-3px);
+}
+
+.card-link.featured h3 {
+    font-size: 18px;
+}
+
+.kicker {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+}
+
+/* Imagens */
+.product-shot {
+    margin: 1.5rem 0;
+}
+
+.product-shot img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-weak);
+}
+
+.product-shot figcaption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+}
+
+.product-shot figcaption a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-decoration-color: var(--border-medium);
+    text-underline-offset: 2px;
+}
+
+.product-shot figcaption a:hover {
+    color: var(--text-primary);
+}
