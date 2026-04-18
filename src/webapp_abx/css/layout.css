@@ -28,6 +28,20 @@ footer.site {
     letter-spacing: 0.05em;
 }
 
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
 .brand {
     font-family: var(--font-mono);
     font-size: 14px;
@@ -71,5 +85,5 @@ nav.site a.active {
     h1 { font-size: 24px; }
     nav.site { gap: 0.75rem; }
     nav.site a { font-size: 13px; }
-    .grid-3 { grid-template-columns: 1fr; }
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
 }

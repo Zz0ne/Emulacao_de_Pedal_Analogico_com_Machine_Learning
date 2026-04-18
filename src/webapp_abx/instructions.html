@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instruções · ABX</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="site">
+    <a href="index.html" class="brand">abx_test // alpha_omicron</a>
+    <nav class="site" aria-label="navegação principal">
+      <a href="project.html">projeto</a>
+      <a href="instructions.html" class="active">instruções</a>
+      <a href="test.html">teste</a>
+      <a href="results.html">resultados</a>
+      <a href="about.html">sobre</a>
+      <a href="contact.html">contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Como funciona o teste</h1>
+      <p class="lead">
+        O método ABX é um standard em psicoacústica para determinar se duas
+        amostras sonoras são percetivamente distintas. Leia as instruções
+        antes de começar — a validade dos resultados depende disso.
+      </p>
+    </section>
+
+    <section>
+      <h2>Passos</h2>
+      <ol class="step-list">
+        <li>
+          <strong>Calibração de volume.</strong>
+          Coloque auscultadores (preferencialmente fechados ou in-ear).
+          Ajuste o volume do sistema para um nível confortável mas audível em detalhe.
+          Evite volumes muito altos: fadiga auditiva degrada a discriminação.
+        </li>
+        <li>
+          <strong>Ambiente silencioso.</strong>
+          Escolha um local sem ruído ambiente significativo. Desligue notificações.
+        </li>
+        <li>
+          <strong>Ouça A e B.</strong>
+          Em cada trial, poderá ouvir a amostra A (referência hardware) e a amostra B
+          (referência emulação) quantas vezes quiser, na ordem que preferir.
+        </li>
+        <li>
+          <strong>Ouça X.</strong>
+          A amostra X corresponde a uma das duas, aleatoriamente. Cada trial é
+          independente — X pode ser A numa ronda e B na seguinte.
+        </li>
+        <li>
+          <strong>Decida.</strong>
+          Selecione <code>X = A</code> ou <code>X = B</code> e submeta. Não há botão
+          "não sei": é pedido que force a sua melhor estimativa, mesmo que tenha
+          pouca certeza.
+        </li>
+        <li>
+          <strong>Repita 12 vezes.</strong>
+          A sessão completa tem 12 trials. Os resultados só são revelados no fim.
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Regras importantes</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Privacidade</h3>
+          <p>As respostas ficam apenas no seu dispositivo (localStorage).
+            Nenhum dado é enviado para um servidor. Nesta fase, o teste é
+            um protótipo client-side.</p>
+        </div>
+        <div class="card">
+          <h3>Aleatorização</h3>
+          <p>Cada trial gera X aleatoriamente como A ou B. A aleatorização
+            é independente por trial e usa distribuição uniforme.</p>
+        </div>
+        <div class="card">
+          <h3>Sem fadiga</h3>
+          <p>Se sentir cansaço auditivo, pause antes de continuar.
+            Os resultados são mais fiáveis quando ouve em fresco.</p>
+        </div>
+        <div class="card">
+          <h3>Samples placeholder</h3>
+          <p>Nesta versão, os samples A e B são gerados sinteticamente.
+            No projeto final serão gravações reais do Alpha Omicron.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <p>projeto final · lei · nuno rodrigues · 2201022</p>
+  </footer>
+
+</div>
+</body>
+</html>
