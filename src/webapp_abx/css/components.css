@@ -425,3 +425,8 @@ code {
     font-size: 14px;
     line-height: 1.7;
 }
+
+.report-meta {
+    font-size: 12px;
+    margin-bottom: 2rem;
+}

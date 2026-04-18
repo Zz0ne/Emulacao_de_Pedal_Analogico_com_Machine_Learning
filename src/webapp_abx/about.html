@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre · ABX</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="site">
+    <a href="index.html" class="brand">abx_test // alpha_omicron</a>
+    <nav class="site" aria-label="navegação principal">
+      <a href="project.html">projeto</a>
+      <a href="instructions.html">instruções</a>
+      <a href="test.html">teste</a>
+      <a href="results.html">resultados</a>
+      <a href="about.html" class="active">sobre</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Relatório do trabalho</h1>
+    <p class="mono dim report-meta">
+      e-fólio A · laboratório de sistemas e serviços web (21182) · 2025/26
+    </p>
+
+    <section>
+      <h2>Finalidade</h2>
+      <p>
+        Este site é um protótipo client-side do teste ABX duplo-cego que
+        integra o projeto final de licenciatura em Engenharia Informática.
+        O projeto final desenvolve um plugin de áudio que emula, por
+        Machine Learning, o pedal de distorção Darkglass Alpha Omicron.
+        A validação percetual dessa emulação exige um teste ABX com
+        participantes humanos. Aproveitei o enunciado deste e-fólio para
+        prototipar toda a interface e lógica de teste em HTML, CSS e
+        JavaScript puros.
+      </p>
+    </section>
+
+    <section>
+      <h2>Organização lógica</h2>
+      <p>
+        O site tem cinco páginas interligadas. A <code>index.html</code>
+        funciona como menu de distribuição, com cards apontando para as
+        secções. A <code>project.html</code> dá contexto sobre o projeto
+        final e a metodologia black-box. A <code>instructions.html</code>
+        explica o método ABX e o significado estatístico dos resultados.
+        A <code>test.html</code> é o motor do teste, com três ecrãs
+        (intro, trial, conclusão) controlados por JavaScript. A
+        <code>results.html</code> apresenta a análise da última sessão.
+        Esta página — <code>about.html</code> — é o relatório exigido
+        pelo enunciado.
+      </p>
+    </section>
+
+    <section>
+      <h2>Separação de conteúdo e apresentação</h2>
+      <p>
+        Todo o estilo vive em três ficheiros CSS: <code>base.css</code>
+        com variáveis, reset e tipografia; <code>layout.css</code> com a
+        estrutura partilhada; e <code>components.css</code> com peças
+        específicas (cards, botões, componentes do teste ABX). O HTML é
+        semântico (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>,
+        <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>,
+        <code>&lt;footer&gt;</code>). As cores são todas definidas por
+        variáveis CSS num único bloco <code>:root</code>, o que tornaria
+        trivial implementar um tema alternativo sem tocar numa linha de
+        HTML. A estrutura modular permite mudar completamente a
+        apresentação alterando apenas CSS.
+      </p>
+    </section>
+
+    <section>
+      <h2>Funcionalidades dinâmicas</h2>
+      <p>
+        Foram implementadas quatro funcionalidades dinâmicas.
+        <strong>Primeira</strong>: o motor do teste ABX, que gera doze
+        trials com X aleatorizado, controla transições entre ecrãs e
+        persiste o estado no <code>localStorage</code>, permitindo
+        retomar uma sessão interrompida. <strong>Segunda</strong>: a
+        síntese de áudio em tempo real via Web Audio API, que gera
+        sinais de baixo distorcido com duas variantes (hardware e
+        emulação) matematicamente próximas mas perceptivelmente
+        distintas. <strong>Terceira</strong>: a barra de progresso,
+        renderizada dinamicamente em JavaScript conforme o utilizador
+        avança nos trials. <strong>Quarta</strong>: a análise
+        estatística na página de resultados, com cálculo do p-value por
+        distribuição binomial, d-prime por inversa da CDF normal, animação CSS da barra de
+        performance e renderização de pills coloridas por trial.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <p>projeto final · lei · nuno rodrigues · 2201022</p>
+  </footer>
+
+</div>
+</body>
+</html>
