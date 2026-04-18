@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste · ABX</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="site">
+    <a href="index.html" class="brand">abx_test // alpha_omicron</a>
+    <nav class="site" aria-label="navegação principal">
+      <a href="project.html">projeto</a>
+      <a href="instructions.html">instruções</a>
+      <a href="test.html" class="active">teste</a>
+      <a href="results.html">resultados</a>
+      <a href="about.html">sobre</a>
+      <a href="contact.html">contacto</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ECRÃ 1: introdução -->
+    <section id="screen-intro">
+      <h1>Teste ABX duplo-cego</h1>
+      <p class="lead">
+        Vai ouvir pares de amostras A e B, seguidos de uma amostra X que
+        corresponde a uma delas. A sua tarefa é escolher se X é igual a A
+        ou a B. Serão apresentados <code>12 trials</code>.
+      </p>
+
+      <div class="grid-3 intro-stats">
+        <div class="stat">
+          <div class="stat-label">trials</div>
+          <div class="stat-value">12</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">duração</div>
+          <div class="stat-value">~6min</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">auscultadores</div>
+          <div class="stat-value">sim</div>
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn primary" type="button">
+        iniciar teste →
+      </button>
+    </section>
+
+    <!-- ECRÃ 2: teste propriamente dito -->
+    <section id="screen-test" hidden>
+
+      <div class="trial-meta">
+        <span>trial <span id="trial-current">00</span> / <span id="trial-total">00</span></span>
+        <span>sessão <span id="session-id">—</span></span>
+      </div>
+
+      <div class="progress-bar" id="progress-bar" aria-label="progresso do teste"></div>
+
+      <div class="sample-grid">
+
+        <div class="sample-card">
+          <div class="sample-label">
+            <span class="sample-name">A</span>
+            <span class="sample-id">referência hardware</span>
+          </div>
+          <button class="play-btn" type="button" data-sample="A">
+            ▶&nbsp;&nbsp;reproduzir A
+          </button>
+        </div>
+
+        <div class="sample-card">
+          <div class="sample-label">
+            <span class="sample-name">B</span>
+            <span class="sample-id">referência emulação</span>
+          </div>
+          <button class="play-btn" type="button" data-sample="B">
+            ▶&nbsp;&nbsp;reproduzir B
+          </button>
+        </div>
+
+        <div class="sample-card x">
+          <div class="sample-label">
+            <span class="sample-name">X</span>
+            <span class="sample-id">desconhecido · aleatorizado</span>
+          </div>
+          <button class="play-btn" type="button" data-sample="X">
+            ▶&nbsp;&nbsp;reproduzir X
+          </button>
+        </div>
+
+      </div>
+
+      <div class="answer-row">
+        <p class="answer-prompt">X é igual a:</p>
+        <div class="answer-btns">
+          <button class="answer-btn" type="button" data-answer="A">X = A</button>
+          <button class="answer-btn" type="button" data-answer="B">X = B</button>
+        </div>
+        <div class="submit-row">
+          <button id="btn-submit" class="btn primary" type="button" disabled>
+            submeter e avançar →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECRÃ 3: fim -->
+    <section id="screen-done" hidden>
+      <h1>Sessão concluída</h1>
+      <p class="lead">
+        Obrigado pela participação. Os resultados detalhados, incluindo
+        taxa de acertos, p-value e d-prime, estão disponíveis na página
+        de resultados.
+      </p>
+      <div class="button-row">
+        <a href="results.html" class="btn primary">ver resultados →</a>
+        <a href="test.html" class="btn">nova sessão</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <p>projeto final · lei · nuno rodrigues · 2201022</p>
+  </footer>
+
+</div>
+</body>
+</html>

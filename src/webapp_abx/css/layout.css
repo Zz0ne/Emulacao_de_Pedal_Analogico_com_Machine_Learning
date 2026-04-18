@@ -86,4 +86,6 @@ nav.site a.active {
     nav.site { gap: 0.75rem; }
     nav.site a { font-size: 13px; }
     .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .sample-grid { grid-template-columns: 1fr; }
+    .sample-card.x { grid-column: span 1; }
 }

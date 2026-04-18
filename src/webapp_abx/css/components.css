@@ -141,3 +141,221 @@ code {
     border-radius: var(--radius-sm);
     color: var(--text-primary);
 }
+/* ---------- Botões ---------- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.btn:hover {
+    background: var(--bg-secondary);
+    text-decoration: none;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: var(--accent-inverse);
+    border-color: var(--accent);
+}
+
+.btn.primary:hover {
+    opacity: 0.85;
+    background: var(--accent);
+}
+
+.button-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* Stats (reutilizada no intro ) */
+.stat {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 14px;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+.intro-stats {
+    margin: 1.5rem 0 2rem;
+}
+
+/* Teste: meta + progresso */
+.trial-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 2rem;
+}
+
+.progress-cell {
+    flex: 1;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--bg-secondary);
+    transition: background var(--transition);
+}
+
+.progress-cell.done {
+    background: var(--text-primary);
+}
+
+.progress-cell.current {
+    background: var(--text-secondary);
+}
+
+/* Teste: samples A/B/X */
+.sample-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.sample-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-weak);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+}
+
+.sample-card.x {
+    grid-column: span 2;
+    background: var(--bg-tertiary);
+    border-color: var(--border-medium);
+}
+
+.sample-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.sample-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+}
+
+.sample-id {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.play-btn {
+    width: 100%;
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    background: transparent;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.play-btn:hover {
+    background: var(--bg-primary);
+    border-color: var(--border-strong);
+}
+
+.play-btn.playing {
+    background: var(--accent);
+    color: var(--accent-inverse);
+    border-color: var(--accent);
+}
+
+/* Teste: resposta */
+.answer-row {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-weak);
+}
+
+.answer-prompt {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.answer-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.answer-btn {
+    padding: 14px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    background: transparent;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all var(--transition);
+}
+
+.answer-btn:hover {
+    border-color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+.answer-btn.selected {
+    border-color: var(--text-primary);
+    background: var(--accent);
+    color: var(--accent-inverse);
+}
+
+.submit-row {
+    display: flex;
+    justify-content: flex-end;
+}
