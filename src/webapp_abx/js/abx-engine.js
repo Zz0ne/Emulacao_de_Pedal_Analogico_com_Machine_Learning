@@ -95,6 +95,21 @@ window.AbxEngine = (function () {
         Storage.remove(HISTORY_KEY);
     }
 
+    /**
+     * Gera os buffers A, B, X para o trial corrente.
+     * X é o mesmo buffer que A ou B, dependendo de trial.xIs.
+     */
+    function loadTrialAudio(session) {
+        const trial = session.trials[session.currentIndex];
+        const seed = trial.seed;
+
+        const bufferA = AudioSynth.presets.hardware(seed);
+        const bufferB = AudioSynth.presets.emulation(seed);
+        const bufferX = trial.xIs === 'A' ? bufferA : bufferB;
+
+        return { A: bufferA, B: bufferB, X: bufferX, trial: trial };
+    }
+
     return {
         N_TRIALS: N_TRIALS,
         createSession: createSession,
@@ -103,5 +118,7 @@ window.AbxEngine = (function () {
         submitAnswer: submitAnswer,
         loadHistory: loadHistory,
         clearHistory: clearHistory
+        clearHistory: clearHistory,
+        loadTrialAudio: loadTrialAudio,
     };
 })();

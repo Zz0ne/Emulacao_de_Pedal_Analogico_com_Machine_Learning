@@ -25,6 +25,8 @@
     // Estado local
     let session = null;
     let selectedAnswer = null;
+    let audio = null;             // { A, B, X } — buffers do trial atual
+    let currentPlayback = null;   // handle da reprodução em curso
 
     // Helpers de UI
     function show(screenName) {
@@ -47,16 +49,30 @@
         }
     }
 
+    function stopCurrent() {
+        if (currentPlayback) {
+            currentPlayback.stop();
+            currentPlayback = null;
+        }
+        playButtons.forEach(function (b) {
+            b.classList.remove('playing');
+            const sample = b.getAttribute('data-sample');
+            b.textContent = '▶\u00A0\u00A0reproduzir ' + sample;
+        });
+    }
+
     function loadCurrentTrial() {
+        audio = AbxEngine.loadTrialAudio(session);
+
         trialCurrent.textContent = String(session.currentIndex + 1).padStart(2, '0');
         trialTotal.textContent   = String(session.totalTrials).padStart(2, '0');
         sessionId.textContent    = session.id;
         renderProgress();
 
-        // reset da UI do trial
         selectedAnswer = null;
         answerButtons.forEach(function (b) { b.classList.remove('selected'); });
         btnSubmit.disabled = true;
+        stopCurrent();
     }
 
     // Handlers de eventos
@@ -70,11 +86,15 @@
     function handlePlay(btn) {
         const sample = btn.getAttribute('data-sample');
         const wasPlaying = btn.classList.contains('playing');
-        playButtons.forEach(function (b) { b.classList.remove('playing'); });
-        if (!wasPlaying) {
-            btn.classList.add('playing');
-            console.log('reproduzir sample', sample);
-        }
+        stopCurrent();
+        if (wasPlaying) return; // segundo clique = parar
+
+        btn.classList.add('playing');
+        btn.textContent = '■\u00A0\u00A0a reproduzir ' + sample;
+
+        currentPlayback = AudioSynth.play(audio[sample], function () {
+            stopCurrent();
+        });
     }
 
     function handleAnswerSelect(btn) {
@@ -86,7 +106,7 @@
 
     function handleSubmit() {
         if (!selectedAnswer) return;
-
+        stopCurrent();
         const result = AbxEngine.submitAnswer(session, selectedAnswer);
 
         if (result.done) {
@@ -95,7 +115,6 @@
             loadCurrentTrial();
         }
     }
-
     // ---------- Wiring ----------
 
     btnStart.addEventListener('click', handleStart);
