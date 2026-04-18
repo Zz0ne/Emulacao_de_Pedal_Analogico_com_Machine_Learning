@@ -110,6 +110,32 @@ window.AbxEngine = (function () {
         return { A: bufferA, B: bufferB, X: bufferX, trial: trial };
     }
 
+    /**
+     * Sumário estatístico de uma sessão.
+     * Precisa que o Stats já esteja carregado.
+     */
+    function summarize(session) {
+        const answered = session.trials.filter(function (t) {
+            return t.answer !== null;
+        });
+        const hits = answered.filter(function (t) { return t.correct; }).length;
+        const n = answered.length;
+        const pct = n > 0 ? (hits / n) * 100 : 0;
+
+        const pValue = n > 0 ? Stats.binomialTailPValue(hits, n, 0.5) : null;
+        const dPrime = n > 0 ? Stats.dPrimeABX(hits, n) : null;
+
+        return {
+            total: n,
+            hits: hits,
+            misses: n - hits,
+            percentage: pct,
+            pValue: pValue,
+            dPrime: dPrime,
+            significant: pValue !== null && pValue < 0.05
+        };
+    }
+
     return {
         N_TRIALS: N_TRIALS,
         createSession: createSession,
@@ -117,8 +143,8 @@ window.AbxEngine = (function () {
         clearSession: clearSession,
         submitAnswer: submitAnswer,
         loadHistory: loadHistory,
-        clearHistory: clearHistory
         clearHistory: clearHistory,
         loadTrialAudio: loadTrialAudio,
+        summarize: summarize
     };
 })();

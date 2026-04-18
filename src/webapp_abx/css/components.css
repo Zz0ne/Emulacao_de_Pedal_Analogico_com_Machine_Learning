@@ -359,3 +359,69 @@ code {
     display: flex;
     justify-content: flex-end;
 }
+
+/* Barra de progresso animada (results) */
+.bar-track {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    height: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: var(--text-primary);
+    width: 0;
+    transition: width 1.2s ease-out;
+    border-radius: var(--radius-md);
+}
+
+/* Pills de resultado por trial */
+.trial-result-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.trial-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-weak);
+}
+
+.trial-pill.hit {
+    background: rgba(127, 176, 105, 0.15);
+    border-color: rgba(127, 176, 105, 0.3);
+    color: #7fb069;
+}
+
+.trial-pill.miss {
+    background: rgba(224, 122, 95, 0.12);
+    border-color: rgba(224, 122, 95, 0.25);
+    color: #e07a5f;
+}
+
+/* Utilitários de texto/espaçamento */
+.muted { color: var(--text-secondary); }
+.dim   { color: var(--text-tertiary); }
+.mono  { font-family: var(--font-mono); }
+
+.text-sm { font-size: 12px; }
+.mt-sm   { margin-top: 1rem; }
+.mt-lg   { margin-top: 2rem; }
+
+.stat-caption {
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+}
+
+.interpretation-text {
+    font-size: 14px;
+    line-height: 1.7;
+}

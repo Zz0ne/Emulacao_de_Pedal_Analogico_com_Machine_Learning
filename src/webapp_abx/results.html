@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados · ABX</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="site">
+    <a href="index.html" class="brand">abx_test // alpha_omicron</a>
+    <nav class="site" aria-label="navegação principal">
+      <a href="project.html">projeto</a>
+      <a href="instructions.html">instruções</a>
+      <a href="test.html">teste</a>
+      <a href="results.html" class="active">resultados</a>
+      <a href="about.html">sobre</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ECRÃ 1: sem histórico -->
+    <section id="screen-empty">
+      <h1>Ainda sem resultados</h1>
+      <p class="lead">
+        Nenhuma sessão concluída foi detectada neste dispositivo. Realize
+        o teste completo para ver a análise estatística da sua performance.
+      </p>
+      <a href="test.html" class="btn primary">iniciar teste →</a>
+    </section>
+
+    <!-- ECRÃ 2: análise da última sessão -->
+    <section id="screen-results" hidden>
+      <h1>Análise da última sessão</h1>
+      <p class="lead">
+        Resultados da sessão <code id="res-session-id">—</code>,
+        concluída em <code id="res-date">—</code>.
+      </p>
+
+      <div class="grid-4 results-stats">
+        <div class="stat">
+          <div class="stat-label">trials</div>
+          <div class="stat-value" id="res-total">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">acertos</div>
+          <div class="stat-value" id="res-hits">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">% correto</div>
+          <div class="stat-value" id="res-pct">0%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">p-value</div>
+          <div class="stat-value" id="res-pvalue">—</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>Performance</h2>
+        <p class="muted stat-caption">
+          <span id="res-pct-label">0%</span> de acertos
+          <span class="dim mono"> · chance = 50%</span>
+        </p>
+        <div class="bar-track">
+          <div class="bar-fill" id="res-bar"></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Interpretação estatística</h2>
+        <div class="card">
+          <p id="res-interpretation" class="interpretation-text"></p>
+          <p class="muted mono text-sm mt-sm">
+            d-prime = <span id="res-dprime">—</span> ·
+            H₀: acertos ~ Binomial(n, 0.5)
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Detalhe por trial</h2>
+        <p class="muted text-sm">Verde: certo. Vermelho: errado.</p>
+        <div class="trial-result-list" id="res-trials"></div>
+      </section>
+
+      <section class="mt-lg">
+        <div class="button-row">
+          <a href="test.html" class="btn primary">nova sessão</a>
+          <button id="btn-clear" class="btn" type="button">apagar histórico</button>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <p>projeto final · lei · nuno rodrigues · 2201022</p>
+  </footer>
+
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/audio-synth.js"></script>
+<script src="js/abx-engine.js"></script>
+<script src="js/results-page.js"></script>
+</body>
+</html>
