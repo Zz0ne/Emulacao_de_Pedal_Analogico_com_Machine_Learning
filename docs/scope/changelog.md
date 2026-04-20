@@ -50,7 +50,7 @@
  - Continuação da pesquisa sobre alguns temas fundamentais sobre redes neurais.
  - UI básico no JUCE
 **Bloqueou:**
- - Perdi a fonte de alimentação do Darkglass Alpha Omicron, sem isso, não há captura. Terei de daquirir um durante a próxima semana.
+ - Perdi a fonte de alimentação do Darkglass Alpha Omicron, sem isso, não há captura. Terei de adquirir um durante a próxima semana.
 **Próxima semana:**
  - Captura de pares Dry/Wet com o Darkglass Alpha Omicron
  - Pipeline de treino PyTorch
@@ -59,9 +59,14 @@
 
 ## Sem. 5 · 14–17 abr
 
-**Feito:**  
-**Bloqueou:**  
+**Feito:**
+ - Algumas experiencias com pytorch, ainda nada especifico ao projeto.
+ - Frontend da plataforma ABX em html/css/js feita como efolioA para a UC Laboratório de Sistemas e Serviços Web
+**Bloqueou:**
+ - devido a ter tido 3 efolios na mesma semana, dificultou um pouco o avanço no projeto
 **Próxima semana:**
+ - Captura de pares Dry/Wet com o Darkglass Alpha Omicron
+ - Pipeline de treino PyTorch
 
 ---
 
