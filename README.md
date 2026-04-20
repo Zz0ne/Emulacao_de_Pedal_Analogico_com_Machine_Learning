@@ -12,9 +12,8 @@
 ## Estado actual
 
 <!-- Actualizar a cada entrega. Escolher um estado e apagar os outros. -->
-
-🟢 **Verde** — A correr conforme planeado.  
-
+<!--🟢 **Verde** — A correr conforme planeado. -->  
+🟡 Amarelo — Devido à concentração de eFolios na semana 5, não consegui dedicar ao projeto o tempo planeado. No entanto, sinto-me confortável com este ligeiro atraso e confio que o tempo será recuperado nas próximas semanas, garantindo que tudo estará pronto para a apresentação da demo.
 ---
 
 ## O que está implementado
