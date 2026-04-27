@@ -72,9 +72,12 @@
 
 ## Sem. 6 · 22–25 abr
 
-**Feito:**  
+**Feito:**
+- Captura de pares Dry/Wet com o Darkglass Alpha Omicron
+- Continuar a explorar o pytorch.
 **Bloqueou:**  
 **Próxima semana:**
+- Pipeline de treino PyTorch
 
 ---
 
