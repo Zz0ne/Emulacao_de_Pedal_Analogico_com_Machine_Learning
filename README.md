@@ -25,13 +25,13 @@
 - [x] **Boilerplate JUCE** — Projeto base configurado via CMake; compilação bem-sucedida dos formatos VST3 e Standalone.
 - [x] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
 - [x] **WebApp de Validação (front-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
+- [x] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
 
 ---
 
 ## O que está pendente
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
-- [ ] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
 - [ ] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
 - [ ] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
 - [ ] **WebApp de Validação (back-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
