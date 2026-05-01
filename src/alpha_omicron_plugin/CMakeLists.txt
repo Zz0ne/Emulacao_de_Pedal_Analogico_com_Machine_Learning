@@ -29,15 +29,15 @@ CPMAddPackage(
 
 # Make sure you include any new source files here
 set(SourceFiles
-        src/PluginEditor.cpp
-        src/PluginEditor.h
-        src/PluginProcessor.cpp
-        src/PluginProcessor.h
+        src/AlphaOmicronEditor.cpp
+        src/AlphaOmicronEditor.h
+        src/AlphaOmicronProcessor.cpp
+        src/AlphaOmicronProcessor.h
 )
 
 # Change these to your own preferences
 juce_add_plugin(${PROJECT_NAME}
-        COMPANY_NAME theaudioprogrammer
+        COMPANY_NAME Totally_Legit_Company
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
         NEEDS_MIDI_OUTPUT FALSE
@@ -48,7 +48,7 @@ juce_add_plugin(${PROJECT_NAME}
         PLUGIN_MANUFACTURER_CODE Tap1
         PLUGIN_CODE Reg0
         FORMATS VST3 AU Standalone
-        PRODUCT_NAME "TapPluginTemplate"        
+        PRODUCT_NAME "AlphaOmicronSIM"
 )
 
 # How we want our SourceFiles to appear in our IDE
