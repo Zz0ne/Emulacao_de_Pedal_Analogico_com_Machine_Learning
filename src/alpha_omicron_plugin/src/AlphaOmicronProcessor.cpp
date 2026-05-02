@@ -107,15 +107,17 @@ void AlphaOmicronProcessor::changeProgramName (int index, const juce::String& ne
 //==============================================================================
 void AlphaOmicronProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
     juce::ignoreUnused (sampleRate, samplesPerBlock);
+    neuralModelLeft.prepare();
+    neuralModelRight.prepare();
 }
 
 void AlphaOmicronProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
+    neuralModelLeft.reset();
+    neuralModelRight.reset();
 }
 
 bool AlphaOmicronProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
@@ -151,27 +153,35 @@ void AlphaOmicronProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
+    // Limpar canais de output que não contenham dados, caso contenham lixo
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear(i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
+    const bool bypass = apvts.getRawParameterValue("bypass")->load() > 0.5f;
+    const float outputDb = apvts.getRawParameterValue("outputVolume")->load();
+    const float outputGain = juce::Decibels::decibelsToGain(outputDb);
+
+    if (bypass)
+    {
+        // Em bypass, ainda aplicamos o output gain para consistência
+        buffer.applyGain(outputGain);
+        return;
+    }
+
+    const int numSamples = buffer.getNumSamples();
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
-        juce::ignoreUnused (channelData);
-        // ..do something to the data...
-    }
+        auto* channelData = buffer.getWritePointer(channel);
+        juce::ignoreUnused(channelData);
+        NeuralModel& model = (channel == 0) ? neuralModelLeft : neuralModelRight;
+
+        for (int i = 0; i < numSamples; ++i)
+        {
+            const float drySample = channelData[i];
+            const float wetSample = model.processSample(drySample);
+            channelData[i] = wetSample * outputGain;
+        }}
 }
 
 //==============================================================================
