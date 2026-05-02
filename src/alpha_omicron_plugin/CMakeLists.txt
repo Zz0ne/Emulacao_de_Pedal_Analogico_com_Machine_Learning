@@ -26,13 +26,33 @@ CPMAddPackage(
     GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
     GIT_TAG origin/master
 )
+CPMAddPackage(
+        NAME RTNeural
+        GIT_REPOSITORY https://github.com/jatinchowdhury18/RTNeural.git
+        GIT_TAG main
+        OPTIONS
+        "RTNEURAL_EIGEN ON"
+)
 
+# Silenciar warnings de código de terceiros
+if (TARGET RTNeural)
+    target_compile_options(RTNeural PRIVATE
+            $<$<CXX_COMPILER_ID:GNU,Clang>:-w>
+    )
+endif()
+
+juce_add_binary_data(${PROJECT_NAME}_BinaryData
+        SOURCES
+        resources/model.json
+)
 # Make sure you include any new source files here
 set(SourceFiles
         src/AlphaOmicronEditor.cpp
         src/AlphaOmicronEditor.h
         src/AlphaOmicronProcessor.cpp
         src/AlphaOmicronProcessor.h
+        src/dsp/NeuralModel.cpp
+        src/dsp/NeuralModel.h
 )
 
 # Change these to your own preferences
@@ -81,5 +101,7 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
+        RTNeural
+        ${PROJECT_NAME}_BinaryData
 )
 
