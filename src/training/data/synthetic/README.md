@@ -1,0 +1,1 @@
+Dados sintéticos são gerados para esta pasta.

@@ -1,0 +1,1 @@
+Modelos treinados vêm para esta pasta.
