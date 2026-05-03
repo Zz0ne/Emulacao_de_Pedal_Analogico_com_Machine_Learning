@@ -12,7 +12,7 @@ public:
   float processSample(float input) noexcept;
 
 private:
-  static constexpr int HIDDENSIZE = 8;
+  static constexpr int HIDDENSIZE = 24;
 
   RTNeural::ModelT<float, 1, 1,
       RTNeural::LSTMLayerT<float, 1, HIDDENSIZE>,\
