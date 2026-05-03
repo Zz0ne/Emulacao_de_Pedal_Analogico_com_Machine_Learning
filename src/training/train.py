@@ -1,55 +1,56 @@
 import torch
+import torchaudio
 from torch.utils.data import DataLoader
-from dataset import AudioPairDataset
+
+from dataset import AudioPairDataset, split_dataset_random
 from model import LSTMEmulator
 from loss import ESRLoss
 
+DRY_PATH = "data/real/dry_aligned.wav"
+WET_PATH = "data/real/wet_aligned.wav"
+
 # Hiperparâmetros
 WINDOW_SIZE = 2048
-BATCH_SIZE = 16
-HIDDEN_SIZE = 8
-LEARNING_RATE = 5e-3
-N_EPOCHS = 200
 TBPTT_CHUNK = 1024
+BATCH_SIZE = 32
+HIDDEN_SIZE = 24
+LEARNING_RATE = 5e-3
+N_EPOCHS = 50
+VAL_RATIO = 0.2
 SEED = 42
-SAMPLE_RATE = 48000
-DURATION_S = 3.0
 
 torch.manual_seed(SEED)
 
-# Dados
-total_samples = SAMPLE_RATE * DURATION_S
-split_idx = int(total_samples * 0.8)
+# Descobrir o tamanho real do ficheiro
+info_t, sr = torchaudio.load(DRY_PATH)
+total_samples = info_t.shape[1]
+print(f"Sample rate: {sr}")
+print(f"Total samples: {total_samples} ({total_samples / sr:.2f} s)")
 
-train_dataset = AudioPairDataset("data/synthetic/dry.wav", "data/synthetic/wet.wav", WINDOW_SIZE,
-                                 start=0, end=split_idx)
-val_dataset = AudioPairDataset("data/synthetic/dry.wav", "data/synthetic/wet.wav", WINDOW_SIZE,
-                               start=split_idx, end=None)
+# Carregar o dataset completo e fazer split aleatório por janelas
+full_dataset = AudioPairDataset(DRY_PATH, WET_PATH, WINDOW_SIZE)
+train_dataset, val_dataset = split_dataset_random(full_dataset, val_ratio=VAL_RATIO, seed=SEED)
+print(f"Total de janelas: {len(full_dataset)}")
+print(f"Treino:    {len(train_dataset)} janelas")
+print(f"Validação: {len(val_dataset)} janelas")
 
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
-
-print(f"Treino: {len(train_dataset)} janelas")
-print(f"Validação: {len(val_dataset)} janelas")
 
 # Modelo, loss, optimizer
 model = LSTMEmulator(hidden_size=HIDDEN_SIZE)
 loss_fn = ESRLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
-
-# Loop de treino
 print("\nA treinar...")
 for epoch in range(N_EPOCHS):
-    # === Fase de treino ===
+    # Treino
     model.train()
     train_losses = []
-
     for batch_x, batch_y in train_loader:
         chunks_x = batch_x.split(TBPTT_CHUNK, dim=1)
         chunks_y = batch_y.split(TBPTT_CHUNK, dim=1)
         hidden = None
-
         for chunk_x, chunk_y in zip(chunks_x, chunks_y):
             optimizer.zero_grad()
             lstm_out, hidden = model.lstm(chunk_x, hidden)
@@ -60,10 +61,9 @@ for epoch in range(N_EPOCHS):
             optimizer.step()
             train_losses.append(loss.item())
 
-    # === Fase de validação ===
+    # Validação
     model.eval()
     val_losses = []
-
     with torch.no_grad():
         for batch_x, batch_y in val_loader:
             y_pred = model(batch_x)
@@ -75,7 +75,5 @@ for epoch in range(N_EPOCHS):
     print(f"Epoch {epoch + 1:3d}/{N_EPOCHS} | train: {avg_train:.6f} | val: {avg_val:.6f}")
 
 print("\nTreino concluído.")
-
-# Guardar pesos
 torch.save(model.state_dict(), "model/model_weights.pt")
 print("Pesos guardados em model/model_weights.pt")
