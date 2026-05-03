@@ -83,10 +83,15 @@
 
 ## Sem. 7 · 28 abr–2 mai · DEMO INTERNA
 
-**Feito:**  
-**Bloqueou:**  
+**Feito:**
+- Pipeline de treino PyTorch
+- Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado
+- MVP
+**Bloqueou:**
+- No dataset, o dry e o wet estavam desfazados em +/- 5ms, foi necessário resolver esse problema para não comprometer o treino
 **Próxima semana:**
-
+- Relatório intermédio
+- Captura de pares Dry/Wet para teste ABX
 ---
 
 ## Sem. 8 · 5–6 mai · INTERCALAR
