@@ -12,8 +12,7 @@
 ## Estado actual
 
 <!-- Actualizar a cada entrega. Escolher um estado e apagar os outros. -->
-<!--🟢 **Verde** — A correr conforme planeado. -->  
-🟡 Amarelo — Devido à concentração de eFolios na semana 5, não consegui dedicar ao projeto o tempo planeado. No entanto, sinto-me confortável com este ligeiro atraso e confio que o tempo será recuperado nas próximas semanas, garantindo que tudo estará pronto para a apresentação da demo.
+🟢 **Verde** — A correr conforme planeado.
 ---
 
 ## O que está implementado
@@ -26,14 +25,15 @@
 - [x] **Interface Gráfica** — Desenvolvimento do front-end do plugin no JUCE, mapeando os controlos visuais aos parâmetros do motor de processamento de áudio.
 - [x] **WebApp de Validação (front-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
 - [x] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
+- [x] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
+- [x] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
 
 ---
 
 ## O que está pendente
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
-- [ ] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
-- [ ] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
+
 - [ ] **WebApp de Validação (back-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
 ---
 
