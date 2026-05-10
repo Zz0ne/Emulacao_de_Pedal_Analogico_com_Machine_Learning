@@ -96,18 +96,21 @@
 
 ## Sem. 8 · 5–6 mai · INTERCALAR
 
-**Feito:**  
+**Feito:** 
+- Relatório intermédio
 **Bloqueou:**  
 **Próxima semana:**
+- Captura de pares Dry/Wet para teste ABX
 
 ---
 
 ## Sem. 9 · 7–9 mai
 
-**Feito:**  
+**Feito:** 
+- Captura de pares Dry/Wet para teste ABX
 **Bloqueou:**  
 **Próxima semana:**
-
+- Pequenas melhorias no código de treino
 ---
 
 ## Sem. 10 · 12–16 mai
