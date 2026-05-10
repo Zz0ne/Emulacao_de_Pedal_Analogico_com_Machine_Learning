@@ -53,18 +53,18 @@
 
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/Zz0ne/Emulacao_de_Pedal_Analogico_com_Machine_Learning 
-cd  Emulacao_de_Pedal_Analogico_com_Machine_Learning/alpha_omicron_sim_plugin
+git clone https://github.com/Zz0ne/Emulacao_de_Pedal_Analogico_com_Machine_Learning
+cd Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/alpha_omicron_plugin
 
-# 2. Compilar plugin
-cmake -B cmake-build -DCMAKE_BUILD_TYPE=Debug
-cmake --build cmake-build --config Debug
+# 2. Compilar plugin em Release
+#    NOTA: Release é essencial. Build em Debug é muito lento
+cmake -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
+cmake --build cmake-build-release --config Release
 
 ```
 Após a compilação, o executável Standalone e o ficheiro .vst3 estarão disponíveis na pasta:
 ```
- # TODO: Completar
-   ./cmake-build/[Nome_do_Artefacto]_artefacts/Debug/
+./cmake-build-release/AlphaOmicronPlugin_artefacts/Release/
 ```
 
 ### Acesso
