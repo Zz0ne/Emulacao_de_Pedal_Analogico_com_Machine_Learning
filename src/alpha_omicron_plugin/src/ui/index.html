@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alpha Omicron</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="pedal">
+    <div class="screw tl"></div>
+    <div class="screw tr"></div>
+    <div class="screw bl"></div>
+    <div class="screw br"></div>
+
+    <header class="brand">
+        <span class="alpha">α</span>
+        <div class="brand-text">
+            <span class="model">ALPHA OMICRON CLONE</span>
+            <span class="maker">DARKGLASS ELECTRONICS</span>
+        </div>
+    </header>
+
+    <div class="led-wrap">
+        <div class="led-socket">
+            <div class="led" id="led"></div>
+        </div>
+    </div>
+
+    <div class="knob-wrap" id="knob-wrap">
+        <canvas id="knob" width="160" height="160"></canvas>
+    </div>
+
+    <div class="value-block">
+        <span class="ctrl-name">OUTPUT</span>
+        <span class="ctrl-val" id="val">0.0 dB</span>
+    </div>
+
+    <div class="stomp-wrap">
+        <button class="stomp" id="stomp" aria-label="Bypass" aria-pressed="false">
+            <div class="stomp-cap">
+                <div class="stomp-ring"></div>
+            </div>
+        </button>
+    </div>
+
+    <span class="stomp-label" id="stomp-label">BYPASS</span>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
