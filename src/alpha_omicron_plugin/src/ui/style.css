@@ -5,15 +5,15 @@
 }
 
 :root {
-    --accent:      #e07b10;
+    --accent:      #00b8b2;
     --face:        #181818;
     --edge:        #0c0c0c;
     --border:      #2a2a2a;
     --text:        #bebbb5;
-    --muted:       #424240;
+    --muted:       #8a8780;
     --screw-hi:    #3e3e3e;
     --screw-lo:    #1a1a1a;
-    --led-on:      #ff8800;
+    --led-on:      #00d4cc;
     --led-off:     #1c0900;
     --stomp-hi:    #424242;
     --stomp-lo:    #141414;
@@ -34,14 +34,14 @@ html, body {
 
 .pedal {
     width: 320px;
-    height: 490px;
+    height: 525px;
     background: var(--face);
     border-radius: 10px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px 20px 32px;
+    padding: 48px 20px 36px;
     gap: 0;
     user-select: none;
 

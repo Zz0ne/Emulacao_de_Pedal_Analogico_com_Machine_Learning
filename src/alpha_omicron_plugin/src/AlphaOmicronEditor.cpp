@@ -9,10 +9,10 @@ namespace
     {
         const auto ext = path.fromLastOccurrenceOf (".", false, false).toLowerCase();
 
-        if (ext == "html" || ext == "htm") return "text/html";
-        if (ext == "js")                   return "text/javascript";
-        if (ext == "css")                  return "text/css";
-        if (ext == "json")                 return "application/json";
+        if (ext == "html" || ext == "htm") return "text/html;charset=utf-8";
+        if (ext == "js")                   return "text/javascript;charset=utf-8";
+        if (ext == "css")                  return "text/css;charset=utf-8";
+        if (ext == "json")                 return "application/json;charset=utf-8";
         if (ext == "svg")                  return "image/svg+xml";
         if (ext == "png")                  return "image/png";
         if (ext == "jpg" || ext == "jpeg") return "image/jpeg";
@@ -63,7 +63,7 @@ AlphaOmicronEditor::AlphaOmicronEditor (AlphaOmicronProcessor& p)
     addAndMakeVisible (webView);
     webView.goToURL (juce::WebBrowserComponent::getResourceProviderRoot());
 
-    setSize (360, 540);
+    setSize (400, 620);
 }
 
 AlphaOmicronEditor::~AlphaOmicronEditor() = default;

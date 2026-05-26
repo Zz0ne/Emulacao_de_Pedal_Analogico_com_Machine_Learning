@@ -6,6 +6,8 @@
  *   bypass       : 0.0 = effect active, 1.0 = bypassed
  */
 
+import * as Juce from "./juce/index.js";
+
 const OUTPUT_MIN = -24.0;
 const OUTPUT_MAX =   6.0;
 
@@ -144,6 +146,7 @@ knobWrap.addEventListener('mousedown', e => {
     dragStartY    = e.clientY;
     dragStartNorm = norm;
     document.body.style.cursor = 'ns-resize';
+    if (outputSlider) outputSlider.sliderDragStarted();
     e.preventDefault();
 });
 
@@ -159,6 +162,7 @@ document.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
     document.body.style.cursor = '';
+    if (outputSlider) outputSlider.sliderDragEnded();
 });
 
 // Double-click resets to 0 dB
@@ -180,39 +184,38 @@ knobWrap.addEventListener('wheel', e => {
 // ── Footswitch ────────────────────────────────────────────────────────────────
 
 stomp.addEventListener('click', () => {
-    renderBypass(!active);
-    sendBypass(!active);
+    const next = !active;
+    renderBypass(next);
+    sendBypass(next);
 });
 
 // ── JUCE bridge ───────────────────────────────────────────────────────────────
 
+let outputSlider = null;
+let bypassToggle = null;
+
 function sendOutputVolume(n) {
-    if (typeof window.__JUCE__ === 'undefined') return;
-    window.__JUCE__.initialisationData.outputVolume.setValue(n);
+    if (outputSlider) outputSlider.setNormalisedValue(n);
 }
 
 function sendBypass(a) {
-    if (typeof window.__JUCE__ === 'undefined') return;
     // bypass param: 0.0 = effect active, 1.0 = bypassed
-    window.__JUCE__.initialisationData.bypass.setValue(a ? 0.0 : 1.0);
+    if (bypassToggle) bypassToggle.setValue(!a);
 }
 
-function initBridge() {
-    if (typeof window.__JUCE__ === 'undefined') {
-        renderKnob(norm);
-        renderBypass(false);
-        return;
-    }
+// Always draw the initial state so the knob is visible even before (or without) JUCE.
+renderKnob(norm);
+renderBypass(false);
 
-    const outRelay = window.__JUCE__.initialisationData.outputVolume;
-    const byRelay  = window.__JUCE__.initialisationData.bypass;
+if (typeof window.__JUCE__ !== 'undefined') {
+    outputSlider = Juce.getSliderState('outputVolume');
+    bypassToggle = Juce.getToggleState('bypass');
 
-    renderKnob(outRelay.getNormalisedValue());
-    renderBypass(byRelay.getValue() < 0.5);
+    const syncFromSlider = () => renderKnob(outputSlider.getNormalisedValue());
+    const syncFromToggle = () => renderBypass(!bypassToggle.getValue());
 
-    // Stay in sync with DAW automation
-    outRelay.addEventListener('valueChanged', e => renderKnob(e.value));
-    byRelay.addEventListener('valueChanged',  e => renderBypass(e.value < 0.5));
+    outputSlider.valueChangedEvent.addListener(syncFromSlider);
+    outputSlider.propertiesChangedEvent.addListener(syncFromSlider);
+    bypassToggle.valueChangedEvent.addListener(syncFromToggle);
+    bypassToggle.propertiesChangedEvent.addListener(syncFromToggle);
 }
-
-initBridge();
