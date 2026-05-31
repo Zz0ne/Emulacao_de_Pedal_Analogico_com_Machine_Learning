@@ -71,3 +71,29 @@ function validation_extract_enum(array $data, string $key, array $allowed): stri
 
     return $value;
 }
+
+/**
+ * Extrai um número decimal obrigatório, com limites opcionais.
+ * Aceita int ou float nativo, ou string numérica.
+ */
+function validation_extract_float(array $data, string $key, ?float $min = null, ?float $max = null): float {
+    if (!isset($data[$key])) {
+        api_helper_error(400, "Campo '$key' em falta.");
+    }
+
+    if (!is_numeric($data[$key])) {
+        api_helper_error(400, "Campo '$key' tem de ser numérico.");
+    }
+
+    $value = (float) $data[$key];
+
+    if ($min !== null && $value < $min) {
+        api_helper_error(400, "Campo '$key' tem de ser >= $min.");
+    }
+
+    if ($max !== null && $value > $max) {
+        api_helper_error(400, "Campo '$key' tem de ser <= $max.");
+    }
+
+    return $value;
+}

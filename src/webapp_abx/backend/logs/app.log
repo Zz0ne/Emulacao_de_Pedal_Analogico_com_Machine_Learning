@@ -1,0 +1,25 @@
+[2026-05-30 23:54:22] RuntimeException: Falha ao ligar à base de dados. in /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php:34
+#0 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php(45): db_connection()
+#1 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/test.php(5): db_query()
+#2 {main}
+
+[2026-05-31 00:00:53] RuntimeException: Falha ao ligar à base de dados. in /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php:34
+#0 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php(45): db_connection()
+#1 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/test.php(5): db_query()
+#2 {main}
+
+[2026-05-31 00:04:30] RuntimeException: Falha ao ligar à base de dados. in /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php:34
+#0 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php(45): db_connection()
+#1 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/test.php(5): db_query()
+#2 {main}
+
+[2026-05-31 00:07:34] RuntimeException: Falha ao ligar à base de dados. in /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php:34
+#0 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php(45): db_connection()
+#1 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/test.php(5): db_query()
+#2 {main}
+
+[2026-05-31 00:10:05] RuntimeException: Falha ao ligar à base de dados. in /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php:34
+#0 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/lib/db.php(45): db_connection()
+#1 /home/nunorl/Desktop/Emulacao_de_Pedal_Analogico_com_Machine_Learning/src/webapp_abx/backend/test.php(5): db_query()
+#2 {main}
+

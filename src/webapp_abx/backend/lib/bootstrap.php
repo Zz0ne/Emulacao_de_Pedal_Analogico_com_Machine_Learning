@@ -22,6 +22,7 @@ if ($env === "dev") {
 require __DIR__ . "/api_helper.php";
 require __DIR__ . "/validation.php";
 require __DIR__ . "/log.php";
+require __DIR__ . "/db.php";      
 
 // Handler global de excepções: apanha tudo o que escape de qualquer endpoint
 set_exception_handler(function (Throwable $e) use ($env): void {
