@@ -10,20 +10,27 @@ public:
     ~AlphaOmicronEditor() override;
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    std::optional<juce::WebBrowserComponent::Resource> getResource (const juce::String& url) const;
+
+    // Restricts navigation so the embedded browser stays on the bundled page.
+    struct SinglePageBrowser : juce::WebBrowserComponent
+    {
+        using juce::WebBrowserComponent::WebBrowserComponent;
+        bool pageAboutToLoad (const juce::String& newURL) override;
+    };
+
     AlphaOmicronProcessor& processorRef;
 
-    juce::ToggleButton bypassButton  { "Bypass" };
-    juce::Slider       outputSlider;
-    juce::Label        outputLabel   { {}, "Output Volume" };
+    juce::WebSliderRelay        outputVolumeRelay { "outputVolume" };
+    juce::WebToggleButtonRelay  bypassRelay       { "bypass" };
 
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> outputAttachment;
+    SinglePageBrowser webView;
+
+    juce::WebSliderParameterAttachment       outputVolumeAttachment;
+    juce::WebToggleButtonParameterAttachment bypassAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AlphaOmicronEditor)
 };
