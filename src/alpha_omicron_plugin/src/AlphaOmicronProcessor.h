@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dsp/NeuralModel.h"
+
 #include <juce_audio_processors/juce_audio_processors.h>
 
 //==============================================================================
@@ -47,6 +49,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-    //==============================================================================
+    NeuralModel neuralModelLeft;
+    NeuralModel neuralModelRight;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AlphaOmicronProcessor)
 };

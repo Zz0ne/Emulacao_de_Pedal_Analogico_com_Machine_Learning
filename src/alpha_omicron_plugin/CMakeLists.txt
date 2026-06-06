@@ -23,6 +23,13 @@ CPMAddPackage(
     GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
     GIT_TAG 8.0.4
 )
+CPMAddPackage(
+        NAME RTNeural
+        GIT_REPOSITORY https://github.com/jatinchowdhury18/RTNeural.git
+        GIT_TAG main
+        OPTIONS
+        "RTNEURAL_EIGEN ON"
+)
 
 # ── WebKit (Linux only) ───────────────────────────────────────────────────────
 # JUCE_WEBVIEW2_PACKAGE_NAME is injected by build.sh; falls back to 4.1 here.
@@ -36,6 +43,26 @@ if(LINUX)
 endif()
 
 # ── Plugin target ─────────────────────────────────────────────────────────────
+# Silenciar warnings de código de terceiros
+if (TARGET RTNeural)
+    target_compile_options(RTNeural PRIVATE
+            $<$<CXX_COMPILER_ID:GNU,Clang>:-w>
+    )
+endif()
+
+juce_add_binary_data(${PROJECT_NAME}_BinaryData
+        SOURCES
+        resources/model.json
+)
+# Make sure you include any new source files here
+set(SourceFiles
+        src/AlphaOmicronEditor.cpp
+        src/AlphaOmicronEditor.h
+        src/AlphaOmicronProcessor.cpp
+        src/AlphaOmicronProcessor.h
+        src/dsp/NeuralModel.cpp
+        src/dsp/NeuralModel.h
+)
 
 juce_add_plugin(${PROJECT_NAME}
     COMPANY_NAME            Totally_Legit_Company
@@ -112,6 +139,8 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
+        RTNeural
+        ${PROJECT_NAME}_BinaryData
 )
 
 if(LINUX)
