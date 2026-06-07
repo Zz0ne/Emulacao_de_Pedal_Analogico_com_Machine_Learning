@@ -1,9 +1,15 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.25)
 project(AlphaOmicronPlugin VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_XCODE_GENERATE_SCHEME OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# ── Platform detection ────────────────────────────────────────────────────────
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(IS_LINUX TRUE)
+endif()
 
 # ── CPM ──────────────────────────────────────────────────────────────────────
 
@@ -34,7 +40,7 @@ CPMAddPackage(
 # ── WebKit (Linux only) ───────────────────────────────────────────────────────
 # JUCE_WEBVIEW2_PACKAGE_NAME is injected by build.sh; falls back to 4.1 here.
 
-if(LINUX)
+if(IS_LINUX)
     if(NOT DEFINED JUCE_WEBVIEW2_PACKAGE_NAME)
         set(JUCE_WEBVIEW2_PACKAGE_NAME "webkit2gtk-4.1")
     endif()
@@ -51,9 +57,12 @@ if (TARGET RTNeural)
 endif()
 
 juce_add_binary_data(${PROJECT_NAME}_BinaryData
+        HEADER_NAME ModelData.h
+        NAMESPACE   ModelData
         SOURCES
         resources/model.json
 )
+
 # Make sure you include any new source files here
 set(SourceFiles
         src/AlphaOmicronEditor.cpp
@@ -80,13 +89,7 @@ juce_add_plugin(${PROJECT_NAME}
 )
 
 # ── Sources ───────────────────────────────────────────────────────────────────
-
-target_sources(${PROJECT_NAME} PRIVATE
-    src/AlphaOmicronEditor.cpp
-    src/AlphaOmicronEditor.h
-    src/AlphaOmicronProcessor.cpp
-    src/AlphaOmicronProcessor.h
-)
+target_sources(${PROJECT_NAME} PRIVATE ${SourceFiles})
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
 
@@ -125,7 +128,7 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         ${PROJECT_NAME}_WebUiData
-        $<$<BOOL:${LINUX}>:${WEBKIT_LIBRARIES}>
+        $<$<BOOL:${IS_LINUX}>:${WEBKIT_LIBRARIES}>
     PUBLIC
         juce::juce_audio_basics
         juce::juce_audio_devices
@@ -143,6 +146,6 @@ target_link_libraries(${PROJECT_NAME}
         ${PROJECT_NAME}_BinaryData
 )
 
-if(LINUX)
+if(IS_LINUX)
     target_include_directories(${PROJECT_NAME} PRIVATE ${WEBKIT_INCLUDE_DIRS})
 endif()

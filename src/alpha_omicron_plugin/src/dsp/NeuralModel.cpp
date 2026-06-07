@@ -1,5 +1,5 @@
 #include "NeuralModel.h"
-#include "BinaryData.h"
+#include "ModelData.h"
 
 #include <sstream>
 #include <string>
@@ -7,7 +7,7 @@
 void NeuralModel::prepare()
 {
   // Construir uma stream a partir do JSON embebido no binário
-  const std::string jsonStr(BinaryData::model_json, BinaryData::model_jsonSize);
+  const std::string jsonStr(ModelData::model_json, ModelData::model_jsonSize);
   std::stringstream jsonStream(jsonStr);
 
   // Parse manual: a RTNeural tem helpers para LSTM/Dense PyTorch
