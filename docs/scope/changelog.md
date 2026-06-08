@@ -115,7 +115,8 @@
 
 ## Sem. 10 · 12–16 mai
 
-**Feito:**  
+**Feito:** 
+- Nada, devido a efolios de outras UCs
 **Bloqueou:**  
 **Próxima semana:**
 
@@ -124,25 +125,38 @@
 ## Sem. 11 · 19–23 mai
 
 **Feito:**  
+- Desenvolver novo web based UI para o plugin com html/css/js
 **Bloqueou:**  
 **Próxima semana:**
+- Iniciar desenvolvimento do backend para o teste ABX feito como efolioB para a UC Laboratório de Sistemas e Serviços Web
 
 ---
 
 ## Sem. 12 · 26–30 mai
 
 **Feito:**  
+- Desenvolvimento do backend para o teste ABX até á fase do efolioB da UC Laboratório de Sistemas e Serviços Web
 **Bloqueou:**  
 **Próxima semana:**
+- Testar diferentes hidden values no pipeline de treino
 
 ---
 
 ## Sem. 13 · 2–6 jun
+**Feito:**
+- Recaptura do dataset Alpha Omicron com nova metodologia: níveis de captura peak ~−6 dBFS.
+- Adição de suporte a CUDA no pipeline de treino para iteração mais rápida em GPU NVIDIA.
+- Iterações de hiperparâmetros sobre o novo dataset: lr 5e-3 a 2e-3, hidden 24, até 200 epochs. ESR de validação convergiu a ~0.012 (vs ~0.030 da primeira captura).
+- Análise comparativa entre o modelo da primeira captura (níveis moderados) e o modelo da nova captura (níveis boostados): o segundo apresenta mais conteúdo em altas frequências que o pedal de referência percebido.
+- Adição de parâmetro **Input Gain** ao plugin C++ (range −12 a +24 dB, aplicado antes do `processSample`) para permitir compensar a discrepância entre nível de captura e nível de uso, expondo ao utilizador um controlo equivalente à variação de drive percebida no pedal real.
 
-**Feito:**  
-**Bloqueou:**  
+**Bloqueou:**
+- Top-end perceptualmente exagerado no modelo treinado em dataset boostado, apesar de ESR baixo. 
+
 **Próxima semana:**
-
+- Decisão final sobre qual modelo levar para o teste ABX: opção provável é o modelo da primeira captura (hidden 24, ESR 0.030) combinado com Input Gain configurável, dado que reproduz subjectivamente melhor o pedal de referência.
+- Avaliação da viabilidade de implementar multi-resolution STFT loss como complemento ao ESR, para o relatório.
+- Lançamento público do teste ABX e recrutamento de participantes.
 ---
 
 ## Sem. 14 · 9–13 jun
