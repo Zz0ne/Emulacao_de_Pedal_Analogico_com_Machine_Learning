@@ -178,9 +178,9 @@ void AlphaOmicronProcessor::processBlock (juce::AudioBuffer<float>& buffer,
 
         for (int i = 0; i < numSamples; ++i)
         {
-            const float drySample = channelData[i];
+            const float drySample = channelData[i] * outputGain;
             const float wetSample = model.processSample(drySample);
-            channelData[i] = wetSample * outputGain;
+            channelData[i] = wetSample ;
         }}
 }
 
