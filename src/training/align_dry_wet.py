@@ -4,7 +4,7 @@ import torchaudio
 
 DRY_PATH = "data/real/dry.wav"
 WET_PATH = "data/real/wet.wav"
-LAG_SAMPLES = -241
+LAG_SAMPLES = 370
 
 dry_t, sr = torchaudio.load(DRY_PATH)
 wet_t, _ = torchaudio.load(WET_PATH)
@@ -50,3 +50,4 @@ print(f"\n--- Verificação ---")
 print(f"dry_aligned no disco: {dry_check.shape[1]} amostras")
 print(f"wet_aligned no disco: {wet_check.shape[1]} amostras")
 print(f"Match: {dry_check.shape[1] == N and wet_check.shape[1] == N}")
+

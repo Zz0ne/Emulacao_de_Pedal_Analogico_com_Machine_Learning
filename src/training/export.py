@@ -2,7 +2,7 @@ import json
 import torch
 from model import LSTMEmulator
 
-HIDDEN_SIZE = 8
+HIDDEN_SIZE = 24
 
 model = LSTMEmulator(hidden_size=HIDDEN_SIZE)
 model.load_state_dict(torch.load("model/model_weights.pt", weights_only=True))
@@ -23,8 +23,7 @@ exported = {
         "unit_type": "LSTM",
     },
     "state_dict": {
-        key: tensor.cpu().numpy().tolist()
-        for key, tensor in state_dict.items()
+        key: tensor.cpu().numpy().tolist() for key, tensor in state_dict.items()
     },
 }
 
@@ -32,3 +31,4 @@ with open("model/model.json", "w") as f:
     json.dump(exported, f, indent=2)
 
 print("\nExportado para model/model.json")
+

@@ -1,6 +1,5 @@
 import torch
 
-HIDDEN_SIZE = 8
 
 class LSTMEmulator(torch.nn.Module):
     def __init__(self, hidden_size):
