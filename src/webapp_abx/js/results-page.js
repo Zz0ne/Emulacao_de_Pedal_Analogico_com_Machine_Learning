@@ -134,11 +134,24 @@
     });
   }
 
+  function describeListener(session) {
+    const parts = [];
+    if (session.listener_experience != null) {
+      parts.push("experiência " + session.listener_experience + "/5");
+    }
+    if (session.used_headphones != null) {
+      parts.push("auscultadores: " + (session.used_headphones ? "sim" : "não"));
+    }
+    return parts.join(" · ");
+  }
+
   function render(session) {
     document.getElementById("res-session-id").textContent = "#" + session.id;
     document.getElementById("res-date").textContent = formatDate(
       session.finished_at,
     );
+    document.getElementById("res-listener").textContent =
+      describeListener(session);
 
     const summary = summaryFromServer(session);
 

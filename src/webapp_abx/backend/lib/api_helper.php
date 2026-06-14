@@ -38,10 +38,22 @@ function api_helper_require_method(string $method): void {
  * Falha com 400 se o JSON for inválido ou estiver vazio.
  */
 function api_helper_read_json(): array {
+    // Rejeita payloads absurdamente grandes antes de os processar. Usamos o
+    // Content-Length quando disponível e, por garantia, o tamanho real lido.
+    $max = app_max_payload_bytes();
+    $declared = (int) ($_SERVER["CONTENT_LENGTH"] ?? 0);
+    if ($declared > $max) {
+        api_helper_error(413, "Corpo do pedido demasiado grande.");
+    }
+
     $raw = file_get_contents("php://input");
 
     if ($raw === "" || $raw === false) {
         api_helper_error(400, "Corpo do pedido vazio.");
+    }
+
+    if (strlen($raw) > $max) {
+        api_helper_error(413, "Corpo do pedido demasiado grande.");
     }
 
     $data = json_decode($raw, true);

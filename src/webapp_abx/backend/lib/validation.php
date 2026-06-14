@@ -57,6 +57,33 @@ function validation_extract_int(array $data, string $key, ?int $min = null, ?int
 }
 
 /**
+ * Extrai um booleano obrigatório. Aceita true/false nativos, 0/1, ou as
+ * strings "true"/"false" — os clientes JSON variam na forma como o enviam.
+ */
+function validation_extract_bool(array $data, string $key): bool {
+    if (!isset($data[$key])) {
+        api_helper_error(400, "Campo '$key' em falta.");
+    }
+
+    $value = $data[$key];
+
+    if (is_bool($value)) {
+        return $value;
+    }
+    if ($value === 1 || $value === 0) {
+        return (bool) $value;
+    }
+    if ($value === "true") {
+        return true;
+    }
+    if ($value === "false") {
+        return false;
+    }
+
+    api_helper_error(400, "Campo '$key' tem de ser booleano (true/false).");
+}
+
+/**
  * Extrai uma string que tem de pertencer a um conjunto fechado de valores.
  * A flag `true` no in_array força comparação estrita — sem ela,
  * `in_array(0, ["A", "B"])` devolveria true.

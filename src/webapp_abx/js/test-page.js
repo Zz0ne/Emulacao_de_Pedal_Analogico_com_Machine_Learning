@@ -1,6 +1,8 @@
 /* ============================================================
    test-page.js — controlador da página test.html
-   Faz a ponte entre DOM e AbxEngine.
+   Faz a ponte entre DOM e AbxEngine. O áudio é carregado de
+   WAVs reais (AudioPlayer), de forma assíncrona e com tratamento
+   de erros de rede/ficheiro em falta.
    ============================================================ */
 
 (function () {
@@ -21,6 +23,15 @@
   const trialCurrent = document.getElementById("trial-current");
   const trialTotal = document.getElementById("trial-total");
   const sessionId = document.getElementById("session-id");
+  const listenerForm = document.getElementById("listener-form");
+
+  const audioStatus = document.getElementById("audio-status");
+  const audioStatusText = document.getElementById("audio-status-text");
+  const btnRetryAudio = document.getElementById("btn-retry-audio");
+
+  const introTrialCount = document.getElementById("intro-trial-count");
+  const statTrials = document.getElementById("stat-trials");
+  const statDuration = document.getElementById("stat-duration");
 
   // Estado local
   let session = null;
@@ -33,6 +44,10 @@
     Object.keys(screens).forEach(function (key) {
       screens[key].hidden = key !== screenName;
     });
+  }
+
+  function pad2(n) {
+    return String(n).padStart(2, "0");
   }
 
   function renderProgress() {
@@ -57,19 +72,48 @@
     playButtons.forEach(function (b) {
       b.classList.remove("playing");
       const sample = b.getAttribute("data-sample");
-      b.textContent = "▶\u00A0\u00A0reproduzir " + sample;
+      b.textContent = "▶  reproduzir " + sample;
     });
   }
 
-  function loadCurrentTrial() {
-    audio = AbxEngine.loadTrialAudio(session);
+  function setPlayEnabled(enabled) {
+    playButtons.forEach(function (b) {
+      b.disabled = !enabled;
+    });
+  }
 
-    trialCurrent.textContent = String(session.currentIndex + 1).padStart(
-      2,
-      "0",
-    );
-    trialTotal.textContent = String(session.totalTrials).padStart(2, "0");
-    sessionId.textContent = session.id;
+  function showAudioMessage(text, withRetry) {
+    audioStatusText.textContent = text;
+    btnRetryAudio.hidden = !withRetry;
+    audioStatus.hidden = false;
+  }
+
+  function hideAudioMessage() {
+    audioStatus.hidden = true;
+    btnRetryAudio.hidden = true;
+    audioStatusText.textContent = "";
+  }
+
+  // ---------- Validação do formulário do ouvinte ----------
+  function readListener() {
+    const exp = listenerForm.querySelector('input[name="experience"]:checked');
+    const hp = listenerForm.querySelector('input[name="headphones"]:checked');
+    if (!exp || !hp) return null;
+    return {
+      experience: parseInt(exp.value, 10),
+      headphones: hp.value === "yes",
+    };
+  }
+
+  function refreshStartEnabled() {
+    btnStart.disabled = readListener() === null;
+  }
+
+  // ---------- Carregar o trial corrente (áudio assíncrono) ----------
+  async function loadCurrentTrial() {
+    trialCurrent.textContent = pad2(session.currentIndex + 1);
+    trialTotal.textContent = pad2(session.totalTrials);
+    sessionId.textContent = session.id !== null ? session.id : "—";
     renderProgress();
 
     selectedAnswer = null;
@@ -78,15 +122,39 @@
     });
     btnSubmit.disabled = true;
     stopCurrent();
+
+    // Áudio: enquanto carrega, bloqueia a reprodução e mostra estado.
+    setPlayEnabled(false);
+    showAudioMessage("a carregar áudio…", false);
+
+    try {
+      audio = await AbxEngine.loadTrialAudio(session);
+      hideAudioMessage();
+      setPlayEnabled(true);
+      // Pré-carrega o trial seguinte para a transição ser instantânea.
+      AbxEngine.preloadTrial(session, session.currentIndex + 1);
+    } catch (e) {
+      audio = null;
+      setPlayEnabled(false);
+      showAudioMessage(
+        "Não foi possível carregar o áudio deste trial. " + e.message,
+        true,
+      );
+    }
   }
 
-  // Handlers de eventos
+  // ---------- Handlers de eventos ----------
   async function handleStart() {
+    const listener = readListener();
+    if (!listener) return; // botão devia estar desativado, mas garantimos
+
+    btnStart.disabled = true;
     AbxEngine.clearSession(); // descarta qualquer sessão pendente
     try {
-      session = await AbxEngine.createSession();
+      session = await AbxEngine.createSession(listener);
     } catch (e) {
       alert("Não foi possível iniciar o teste: " + e.message);
+      btnStart.disabled = false;
       return;
     }
     show("test");
@@ -94,15 +162,16 @@
   }
 
   function handlePlay(btn) {
+    if (!audio) return; // áudio ainda não carregou
     const sample = btn.getAttribute("data-sample");
     const wasPlaying = btn.classList.contains("playing");
     stopCurrent();
     if (wasPlaying) return; // segundo clique = parar
 
     btn.classList.add("playing");
-    btn.textContent = "■\u00A0\u00A0a reproduzir " + sample;
+    btn.textContent = "■  a reproduzir " + sample;
 
-    currentPlayback = AudioSynth.play(audio[sample], function () {
+    currentPlayback = AudioPlayer.play(audio[sample], function () {
       stopCurrent();
     });
   }
@@ -124,7 +193,7 @@
     if (result.done) {
       show("done");
       // O teste terminou e está guardado localmente. Tenta sincronizar
-      // com o servidor — se falhar, os resultados não se perdem
+      // com o servidor — se falhar, os resultados não se perdem.
       try {
         await AbxEngine.submitSession(session);
       } catch (e) {
@@ -138,6 +207,8 @@
   // ---------- Wiring ----------
   btnStart.addEventListener("click", handleStart);
   btnSubmit.addEventListener("click", handleSubmit);
+  listenerForm.addEventListener("change", refreshStartEnabled);
+  btnRetryAudio.addEventListener("click", loadCurrentTrial);
 
   playButtons.forEach(function (b) {
     b.addEventListener("click", function () {
@@ -151,6 +222,20 @@
     });
   });
 
+  // ---------- Contagem dinâmica de trials no ecrã de introdução ----------
+  AbxEngine.getTrialCount()
+    .then(function (n) {
+      introTrialCount.textContent = String(n);
+      statTrials.textContent = String(n);
+      // Estimativa grosseira: ~30 s por trial (ouvir A/B/X + decidir).
+      statDuration.textContent = "~" + Math.max(1, Math.round(n * 0.5)) + "min";
+    })
+    .catch(function () {
+      introTrialCount.textContent = "?";
+      statTrials.textContent = "?";
+      statDuration.textContent = "—";
+    });
+
   // ---------- Retomar sessão em curso, se existir ----------
   const existing = AbxEngine.loadSession();
   if (
@@ -161,6 +246,7 @@
     session = existing;
     show("test");
     loadCurrentTrial();
+  } else {
+    refreshStartEnabled();
   }
 })();
-

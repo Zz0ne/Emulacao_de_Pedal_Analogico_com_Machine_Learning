@@ -1,10 +1,15 @@
 <?php
 declare(strict_types=1);
 
-const DB_HOST = 'localhost';
-const DB_NAME = 'efolioB_21182_2201022';
-const DB_USER = 'lei';
-const DB_PASS = 'lssweb#26';
+/**
+ * Lê uma variável de ambiente, devolvendo o fallback se estiver ausente.
+ * As credenciais da BD vêm do ambiente (essencial para Docker/Coolify);
+ * os fallbacks servem o desenvolvimento local e coincidem com o setup.sql.
+ */
+function db_env(string $key, string $fallback): string {
+    $value = getenv($key);
+    return ($value === false || $value === '') ? $fallback : $value;
+}
 
 /**
  * Devolve a ligação PDO, criando-a na primeira chamada e reutilizando-a
@@ -15,14 +20,19 @@ function db_connection(): PDO {
     static $pdo = null;
 
     if ($pdo === null) {
+        $host = db_env('DB_HOST', 'localhost');
+        $name = db_env('DB_NAME', 'abx_test');
+        $user = db_env('DB_USER', 'abx_app');
+        $pass = db_env('DB_PASS', 'abx_dev_pw');
+
         $dsn = sprintf(
             'mysql:host=%s;dbname=%s;charset=utf8mb4',
-            DB_HOST,
-            DB_NAME
+            $host,
+            $name
         );
 
         try {
-            $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+            $pdo = new PDO($dsn, $user, $pass, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,

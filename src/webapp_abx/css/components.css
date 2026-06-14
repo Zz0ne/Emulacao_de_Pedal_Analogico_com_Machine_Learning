@@ -444,117 +444,101 @@ code {
   line-height: 1.7;
 }
 
-.report-meta {
-  font-size: 12px;
-  margin-bottom: 2rem;
-}
-/* Back-office */
+/* Formulário do ouvinte (ecrã de introdução do teste) */
 
-.bo-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
-  max-width: 480px;
-}
-
-.bo-cell {
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono, monospace);
-  font-size: 1.1rem;
-  border: 1px solid var(--border, #333);
-  background: var(--surface, #1a1a1a);
-  color: var(--text, #e0e0e0);
-  cursor: pointer;
-  border-radius: 4px;
-  transition:
-    border-color 0.15s,
-    background 0.15s;
-}
-
-.bo-cell:hover {
-  border-color: var(--accent, #5a9);
-}
-
-.bo-cell.selected {
-  border-color: var(--accent, #5a9);
-  background: var(--accent-dim, #234);
-}
-
-.bo-form {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 560px;
-}
-
-.bo-field {
+.listener-form {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 1.25rem;
+  margin: 1.5rem 0 2rem;
 }
 
-.bo-field label {
-  font-size: 0.85rem;
-  color: var(--text-dim, #999);
-}
-
-.bo-field input,
-.bo-field select {
-  padding: 0.5rem;
-  background: var(--surface, #1a1a1a);
+.listener-form fieldset {
   border: 1px solid var(--border, #333);
+  border-radius: 6px;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.listener-form legend {
+  padding: 0 0.5rem;
+  font-size: 0.9rem;
   color: var(--text, #e0e0e0);
+}
+
+.scale-row,
+.choice-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.scale-row label,
+.choice-row label {
+  position: relative;
+  cursor: pointer;
+}
+
+.scale-row input,
+.choice-row input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.scale-row span,
+.choice-row span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border, #333);
   border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.95rem;
-}
-
-.bo-status {
+  background: var(--surface, #1a1a1a);
+  color: var(--text, #e0e0e0);
   font-family: var(--font-mono, monospace);
-  font-size: 0.9rem;
-  align-self: center;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
 }
 
-.bo-status.ok {
-  color: #5c5;
-}
-.bo-status.error {
-  color: #e55;
+.scale-row label:hover span,
+.choice-row label:hover span {
+  border-color: var(--accent, #5a9);
 }
 
-/* Tabela do schema */
-
-.schema-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.5rem 0 1.5rem;
-  font-size: 0.9rem;
-}
-
-.schema-table th,
-.schema-table td {
-  text-align: left;
-  padding: 0.4rem 0.6rem;
-  border-bottom: 1px solid var(--border, #333);
-}
-
-.schema-table th {
-  color: var(--text-dim, #999);
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.schema-table td:first-child {
-  font-family: var(--font-mono, monospace);
+.scale-row input:checked + span,
+.choice-row input:checked + span {
+  border-color: var(--accent, #5a9);
+  background: var(--accent-dim, #234);
   color: var(--accent, #5a9);
 }
 
-.schema-table td:nth-child(2) {
-  font-family: var(--font-mono, monospace);
+.scale-row input:focus-visible + span,
+.choice-row input:focus-visible + span {
+  outline: 2px solid var(--accent, #5a9);
+  outline-offset: 2px;
+}
+
+/* Estado de carregamento / erro do áudio (ecrã de teste) */
+
+.audio-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border, #333);
+  border-radius: 4px;
+  background: var(--surface, #1a1a1a);
   color: var(--text-dim, #999);
+  font-size: 0.9rem;
+}
+
+.play-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

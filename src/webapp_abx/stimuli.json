@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "description": "Manifesto estatico dos estimulos do teste ABX. Cada entrada e um par: url_a (A) e url_b (B). O ficheiro X reproduzido ao participante e uma copia de A ou de B, escolhida pela aplicacao (campo x_is). Formato de cada trial: { trial_index, label, url_a, url_b }. Caminhos relativos a raiz do site.",
+  "sample_rate_hz": 48000,
+  "bit_depth": 24,
+  "trials": [
+    {
+      "trial_index": 0,
+      "label": "Wynonas Big Brown Beaver",
+      "url_a": "assets/audio/dry_Wynonas_Big_Brown_Beaver.wav",
+      "url_b": "assets/audio/wet_Wynonas_Big_Brown_Beaver.wav"
+    },
+    {
+      "trial_index": 1,
+      "label": "Ace Of Spades",
+      "url_a": "assets/audio/dry_ace_of_spades.wav",
+      "url_b": "assets/audio/wet_ace_of_spades.wav"
+    },
+    {
+      "trial_index": 2,
+      "label": "Bulls On Parade",
+      "url_a": "assets/audio/dry_bulls_on_parade.wav",
+      "url_b": "assets/audio/wet_bulls_on_parade.wav"
+    },
+    {
+      "trial_index": 3,
+      "label": "Got The Time",
+      "url_a": "assets/audio/dry_got_the_time.wav",
+      "url_b": "assets/audio/wet_got_the_time.wav"
+    },
+    {
+      "trial_index": 4,
+      "label": "Killing In The Name",
+      "url_a": "assets/audio/dry_killing_in_the_name.wav",
+      "url_b": "assets/audio/wet_killing_in_the_name.wav"
+    },
+    {
+      "trial_index": 5,
+      "label": "Kingdom 1",
+      "url_a": "assets/audio/dry_kingdom_1.wav",
+      "url_b": "assets/audio/wet_kingdom_1.wav"
+    },
+    {
+      "trial_index": 6,
+      "label": "Kingdom 2",
+      "url_a": "assets/audio/dry_kingdom_2.wav",
+      "url_b": "assets/audio/wet_kingdom_2.wav"
+    },
+    {
+      "trial_index": 7,
+      "label": "Limelight",
+      "url_a": "assets/audio/dry_limelight.wav",
+      "url_b": "assets/audio/wet_limelight.wav"
+    },
+    {
+      "trial_index": 8,
+      "label": "My Name Is Mud",
+      "url_a": "assets/audio/dry_my_name_is_mud.wav",
+      "url_b": "assets/audio/wet_my_name_is_mud.wav"
+    },
+    {
+      "trial_index": 9,
+      "label": "Personal Jesus",
+      "url_a": "assets/audio/dry_personal_jesus.wav",
+      "url_b": "assets/audio/wet_personal_jesus.wav"
+    },
+    {
+      "trial_index": 10,
+      "label": "Random Harmonics",
+      "url_a": "assets/audio/dry_random_harmonics.wav",
+      "url_b": "assets/audio/wet_random_harmonics.wav"
+    },
+    {
+      "trial_index": 11,
+      "label": "Random Slap 1",
+      "url_a": "assets/audio/dry_random_slap_1.wav",
+      "url_b": "assets/audio/wet_random_slap_1.wav"
+    },
+    {
+      "trial_index": 12,
+      "label": "Random Slap 2",
+      "url_a": "assets/audio/dry_random_slap_2.wav",
+      "url_b": "assets/audio/wet_random_slap_2.wav"
+    },
+    {
+      "trial_index": 13,
+      "label": "Random Slap 3",
+      "url_a": "assets/audio/dry_random_slap_3.wav",
+      "url_b": "assets/audio/wet_random_slap_3.wav"
+    },
+    {
+      "trial_index": 14,
+      "label": "Seek And Destroy",
+      "url_a": "assets/audio/dry_seek_and_destroy.wav",
+      "url_b": "assets/audio/wet_seek_and_destroy.wav"
+    },
+    {
+      "trial_index": 15,
+      "label": "Synphony Of Destruction",
+      "url_a": "assets/audio/dry_synphony_of_destruction.wav",
+      "url_b": "assets/audio/wet_synphony_of_destruction.wav"
+    },
+    {
+      "trial_index": 16,
+      "label": "Them Bones",
+      "url_a": "assets/audio/dry_them_bones.wav",
+      "url_b": "assets/audio/wet_them_bones.wav"
+    },
+    {
+      "trial_index": 17,
+      "label": "Tom Sawyer",
+      "url_a": "assets/audio/dry_tom_sawyer.wav",
+      "url_b": "assets/audio/wet_tom_sawyer.wav"
+    },
+    {
+      "trial_index": 18,
+      "label": "Tomy The Cat",
+      "url_a": "assets/audio/dry_tomy_the_cat.wav",
+      "url_b": "assets/audio/wet_tomy_the_cat.wav"
+    },
+    {
+      "trial_index": 19,
+      "label": "Wrathchild",
+      "url_a": "assets/audio/dry_wrathchild.wav",
+      "url_b": "assets/audio/wet_wrathchild.wav"
+    }
+  ]
+}

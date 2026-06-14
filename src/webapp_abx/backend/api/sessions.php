@@ -42,7 +42,8 @@ function sessions_handle_get(): void {
 function sessions_get_all(): void {
     $rows = db_query(
         "SELECT id, started_at, finished_at, total_trials, hits,
-                p_value, d_prime, submitted_at
+                p_value, d_prime, listener_experience, used_headphones,
+                submitted_at
          FROM sessions
          ORDER BY started_at DESC"
     );
@@ -61,7 +62,8 @@ function sessions_get_all(): void {
 function sessions_get_one(int $id): void {
     $session = db_query_one(
         "SELECT id, started_at, finished_at, total_trials, hits,
-                p_value, d_prime, submitted_at
+                p_value, d_prime, listener_experience, used_headphones,
+                submitted_at
          FROM sessions
          WHERE id = ?",
         [$id]
@@ -96,13 +98,24 @@ function sessions_get_one(int $id): void {
 function sessions_handle_post(): void {
     $data = api_helper_read_json();
 
+    // Token de sessão: prova que o teste foi iniciado pela aplicação.
+    if (!session_token_valid($data["token"] ?? null)) {
+        api_helper_error(403, "Sessão inválida ou expirada. Reinicie o teste.");
+    }
+
+    // Rate-limiting por IP, antes de qualquer processamento pesado.
+    $client_ip = $_SERVER["REMOTE_ADDR"] ?? null;
+    sessions_enforce_rate_limit($client_ip);
+
     // Campos da sessão
-    $total_trials = validation_extract_int($data, "total_trials", min: 1, max: 50);
-    $hits         = validation_extract_int($data, "hits", min: 0, max: $total_trials);
-    $started_at   = sessions_extract_datetime($data, "started_at");
-    $finished_at  = sessions_extract_datetime($data, "finished_at");
-    $p_value      = sessions_extract_nullable_float($data, "p_value");
-    $d_prime      = sessions_extract_nullable_float($data, "d_prime");
+    $total_trials        = validation_extract_int($data, "total_trials", min: 1, max: 50);
+    $hits                = validation_extract_int($data, "hits", min: 0, max: $total_trials);
+    $listener_experience = validation_extract_int($data, "listener_experience", min: 1, max: 5);
+    $used_headphones     = validation_extract_bool($data, "used_headphones");
+    $started_at          = sessions_extract_datetime($data, "started_at");
+    $finished_at         = sessions_extract_datetime($data, "finished_at");
+    $p_value             = sessions_extract_nullable_float($data, "p_value");
+    $d_prime             = sessions_extract_nullable_float($data, "d_prime");
 
     // Trials
     if (!isset($data["trials"]) || !is_array($data["trials"])) {
@@ -161,20 +174,21 @@ function sessions_handle_post(): void {
         api_helper_error(400, "Há trial_index repetidos.");
     }
 
-    // Grava tudo numa transação
-    $client_ip = $_SERVER["REMOTE_ADDR"] ?? null;
-
+    // Grava tudo numa transação ($client_ip já foi obtido acima)
     $new_id = db_transaction(function () use (
         $started_at, $finished_at, $total_trials, $hits,
-        $p_value, $d_prime, $client_ip, $validated_trials
+        $p_value, $d_prime, $listener_experience, $used_headphones,
+        $client_ip, $validated_trials
     ): int {
         db_execute(
             "INSERT INTO sessions
                 (started_at, finished_at, total_trials, hits,
-                 p_value, d_prime, client_ip, submitted_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, NOW())",
+                 p_value, d_prime, listener_experience, used_headphones,
+                 client_ip, submitted_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
             [$started_at, $finished_at, $total_trials, $hits,
-             $p_value, $d_prime, $client_ip]
+             $p_value, $d_prime, $listener_experience, $used_headphones ? 1 : 0,
+             $client_ip]
         );
 
         // lastInsertId reflecte o último INSERT
@@ -213,7 +227,40 @@ function sessions_normalize_row(array $row): array {
     $row["hits"] = (int) $row["hits"];
     $row["p_value"] = $row["p_value"] !== null ? (float) $row["p_value"] : null;
     $row["d_prime"] = $row["d_prime"] !== null ? (float) $row["d_prime"] : null;
+    if (array_key_exists("listener_experience", $row)) {
+        $row["listener_experience"] = (int) $row["listener_experience"];
+    }
+    if (array_key_exists("used_headphones", $row)) {
+        $row["used_headphones"] = (bool) $row["used_headphones"];
+    }
     return $row;
+}
+
+/**
+ * Aplica rate-limiting por IP: rejeita (429) se o nº de submissões recentes
+ * do mesmo IP exceder o limite configurado. Sem IP (ex.: CLI), não limita.
+ */
+function sessions_enforce_rate_limit(?string $client_ip): void {
+    if ($client_ip === null || $client_ip === "") {
+        return;
+    }
+
+    [$max, $window] = app_rate_limit();
+    $threshold = date("Y-m-d H:i:s", time() - $window);
+
+    $row = db_query_one(
+        "SELECT COUNT(*) AS c
+         FROM sessions
+         WHERE client_ip = ? AND submitted_at > ?",
+        [$client_ip, $threshold]
+    );
+
+    if ($row !== null && (int) $row["c"] >= $max) {
+        api_helper_error(
+            429,
+            "Demasiadas submissões deste dispositivo. Tente novamente mais tarde."
+        );
+    }
 }
 
 function sessions_normalize_trial(array $row): array {

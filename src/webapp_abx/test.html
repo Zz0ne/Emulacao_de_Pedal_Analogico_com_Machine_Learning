@@ -17,7 +17,6 @@
           <a href="instructions.html">instruções</a>
           <a href="test.html" class="active">teste</a>
           <a href="results.html">resultados</a>
-          <a href="about.html">sobre</a>
         </nav>
       </header>
 
@@ -28,17 +27,17 @@
           <p class="lead">
             Vai ouvir pares de amostras A e B, seguidos de uma amostra X que
             corresponde a uma delas. A sua tarefa é escolher se X é igual a A ou
-            a B. Serão apresentados <code>12 trials</code>.
+            a B. Serão apresentados <code id="intro-trial-count">…</code> trials.
           </p>
 
           <div class="grid-3 intro-stats">
             <div class="stat">
               <div class="stat-label">trials</div>
-              <div class="stat-value">12</div>
+              <div class="stat-value" id="stat-trials">…</div>
             </div>
             <div class="stat">
               <div class="stat-label">duração</div>
-              <div class="stat-value">~6min</div>
+              <div class="stat-value" id="stat-duration">…</div>
             </div>
             <div class="stat">
               <div class="stat-label">auscultadores</div>
@@ -46,7 +45,34 @@
             </div>
           </div>
 
-          <button id="btn-start" class="btn primary" type="button">
+          <form id="listener-form" class="listener-form">
+            <fieldset>
+              <legend>A sua experiência com áudio / música</legend>
+              <p class="muted text-sm">
+                1 = sem experiência · 5 = profissional (músico, produção, eng. de som)
+              </p>
+              <div class="scale-row" role="radiogroup" aria-label="experiência">
+                <label><input type="radio" name="experience" value="1" /><span>1</span></label>
+                <label><input type="radio" name="experience" value="2" /><span>2</span></label>
+                <label><input type="radio" name="experience" value="3" /><span>3</span></label>
+                <label><input type="radio" name="experience" value="4" /><span>4</span></label>
+                <label><input type="radio" name="experience" value="5" /><span>5</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Está a usar auscultadores?</legend>
+              <p class="muted text-sm">
+                Recomendado: o teste é mais válido com auscultadores.
+              </p>
+              <div class="choice-row" role="radiogroup" aria-label="auscultadores">
+                <label><input type="radio" name="headphones" value="yes" /><span>Sim</span></label>
+                <label><input type="radio" name="headphones" value="no" /><span>Não</span></label>
+              </div>
+            </fieldset>
+          </form>
+
+          <button id="btn-start" class="btn primary" type="button" disabled>
             iniciar teste →
           </button>
         </section>
@@ -66,6 +92,13 @@
             id="progress-bar"
             aria-label="progresso do teste"
           ></div>
+
+          <div id="audio-status" class="audio-status" role="status" hidden>
+            <span id="audio-status-text"></span>
+            <button id="btn-retry-audio" class="btn" type="button" hidden>
+              tentar de novo
+            </button>
+          </div>
 
           <div class="sample-grid">
             <div class="sample-card">
@@ -143,7 +176,7 @@
     </div>
 
     <script src="js/storage.js"></script>
-    <script src="js/audio-synth.js"></script>
+    <script src="js/audio-player.js"></script>
     <script src="js/stats.js"></script>
     <script src="js/abx-engine.js"></script>
     <script src="js/test-page.js"></script>

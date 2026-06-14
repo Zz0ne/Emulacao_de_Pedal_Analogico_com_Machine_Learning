@@ -1,0 +1,4 @@
+.env
+docker-compose.override.yml
+backend/logs/*.log
+compose_output.txt

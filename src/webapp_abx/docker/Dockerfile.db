@@ -1,0 +1,7 @@
+FROM mariadb:11.4
+
+# Schema assado na imagem (em vez de bind mount) para evitar o problema de
+# permissões do shared folder: o entrypoint corre como utilizador 'mysql' e
+# precisa de conseguir ler o ficheiro de init.
+COPY backend/sql/setup.sql /docker-entrypoint-initdb.d/01-setup.sql
+RUN chmod 0644 /docker-entrypoint-initdb.d/01-setup.sql

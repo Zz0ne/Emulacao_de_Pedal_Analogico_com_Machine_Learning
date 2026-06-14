@@ -18,7 +18,6 @@
       <a href="instructions.html" class="active">instruções</a>
       <a href="test.html">teste</a>
       <a href="results.html">resultados</a>
-      <a href="about.html">sobre</a>
     </nav>
   </header>
 
@@ -62,8 +61,9 @@
           pouca certeza.
         </li>
         <li>
-          <strong>Repita 12 vezes.</strong>
-          A sessão completa tem 12 trials. Os resultados só são revelados no fim.
+          <strong>Repita até ao fim.</strong>
+          A sessão percorre todos os pares de estímulos do conjunto. Os
+          resultados só são revelados no final.
         </li>
       </ol>
     </section>
@@ -73,14 +73,15 @@
       <div class="grid-2">
         <div class="card">
           <h3>Privacidade</h3>
-          <p>As respostas ficam apenas no seu dispositivo (localStorage).
-            Nenhum dado é enviado para um servidor. Nesta fase, o teste é
-            um protótipo client-side.</p>
+          <p>No fim, a sessão (respostas, acertos e os metadados que indicou) é
+            enviada para o servidor para análise agregada. Não recolhemos dados
+            pessoais; o IP de origem é guardado apenas para limitar abusos.</p>
         </div>
         <div class="card">
           <h3>Aleatorização</h3>
-          <p>Cada trial gera X aleatoriamente como A ou B. A aleatorização
-            é independente por trial e usa distribuição uniforme.</p>
+          <p>Em metade dos trials X corresponde a A e na outra metade a B
+            (balanceado), e a ordem dos pares é baralhada para cada
+            participante, reduzindo efeitos de ordem.</p>
         </div>
         <div class="card">
           <h3>Sem fadiga</h3>
@@ -88,9 +89,9 @@
             Os resultados são mais fiáveis quando ouve em fresco.</p>
         </div>
         <div class="card">
-          <h3>Samples placeholder</h3>
-          <p>Nesta versão, os samples A e B são gerados sinteticamente.
-            No projeto final serão gravações reais do Alpha Omicron.</p>
+          <h3>Estímulos</h3>
+          <p>Em cada par, A é uma gravação do pedal Alpha Omicron real e B é a
+            saída da emulação por Machine Learning. X é uma cópia de A ou de B.</p>
         </div>
       </div>
     </section>

@@ -1,0 +1,44 @@
+services:
+  app:
+    build: .
+    # Sem publicação de portas no host: em produção o reverse proxy do Coolify
+    # liga-se à porta 80 do container. O acesso local (8080) vem do override.
+    expose:
+      - "80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-abx_test}
+      DB_USER: ${DB_USER:-abx_app}
+      DB_PASS: ${DB_PASS}
+      APP_ENV: ${APP_ENV:-prod}
+      APP_SECRET: ${APP_SECRET}
+    volumes:
+      - app_logs:/var/www/html/backend/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.db
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MARIADB_DATABASE: ${DB_NAME:-abx_test}
+      MARIADB_USER: ${DB_USER:-abx_app}
+      MARIADB_PASSWORD: ${DB_PASS}
+    # Sem portas no host por omissão (BD nunca exposta em produção). O acesso
+    # local (3307, p/ JetBrains) vem do docker-compose.override.yml.
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  app_logs:
