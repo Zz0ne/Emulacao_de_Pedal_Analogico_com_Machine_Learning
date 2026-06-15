@@ -27,6 +27,7 @@
 - [x] **Aquisição de Dados** — Gravação do dataset de ficheiros Dry/Wet através do pedal físico para posterior treino.
 - [x] **Treino do Modelo de ML** — Implementação e treino da rede neuronal usando PyTorch.
 - [x] **Inferência em Tempo Real** — Integração da biblioteca RTNeural no JUCE para carregar o modelo treinado.
+- [x] **WebApp de Validação (back-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
 
 ---
 
@@ -34,7 +35,6 @@
 
 <!-- O que falta do MVP e porquê. Se algo foi descontinuado, explicar a decisão. -->
 
-- [ ] **WebApp de Validação (back-end)** — Desenvolvimento de uma interface web simples para testes duplo-cego de avaliação psicoacústica.
 ---
 
 ## Como instalar e correr

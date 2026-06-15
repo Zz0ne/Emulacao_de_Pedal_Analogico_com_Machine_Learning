@@ -155,15 +155,17 @@
 
 **Próxima semana:**
 - Decisão final sobre qual modelo levar para o teste ABX: opção provável é o modelo da primeira captura (hidden 24, ESR 0.030) combinado com Input Gain configurável, dado que reproduz subjectivamente melhor o pedal de referência.
-- Avaliação da viabilidade de implementar multi-resolution STFT loss como complemento ao ESR, para o relatório.
 - Lançamento público do teste ABX e recrutamento de participantes.
 ---
 
 ## Sem. 14 · 9–13 jun
 
 **Feito:**  
+- Lançamento público do teste ABX e recrutamento de participantes.
 **Bloqueou:**  
 **Próxima semana:**
+- Analisar resultados do teste ABX
+- Finalizar o relatório final
 
 ---
 
