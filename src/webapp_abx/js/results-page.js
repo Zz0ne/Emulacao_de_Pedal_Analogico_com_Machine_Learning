@@ -136,6 +136,9 @@
 
   function describeListener(session) {
     const parts = [];
+    if (session.listener_age_band != null) {
+      parts.push("idade " + session.listener_age_band);
+    }
     if (session.listener_experience != null) {
       parts.push("experiência " + session.listener_experience + "/5");
     }

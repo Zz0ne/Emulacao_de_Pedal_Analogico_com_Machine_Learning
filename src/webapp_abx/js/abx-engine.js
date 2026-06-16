@@ -118,7 +118,7 @@ window.AbxEngine = (function () {
    * próximo possível. A ordem de apresentação dos pares é aleatorizada
    * por participante.
    *
-   * @param {Object} listener  { experience: 1-5, headphones: boolean }
+   * @param {Object} listener  { experience: 1-5, headphones: boolean, ageBand: string }
    */
   async function createSession(listener) {
     const manifest = await fetchManifest();
@@ -159,6 +159,7 @@ window.AbxEngine = (function () {
       id: null, // atribuído pelo servidor na submissão
       token: token,
       listenerExperience: listener ? listener.experience : null,
+      listenerAgeBand: listener ? listener.ageBand : null,
       usedHeadphones: listener ? !!listener.headphones : null,
       startedAt: new Date().toISOString(),
       finishedAt: null,
@@ -208,6 +209,7 @@ window.AbxEngine = (function () {
     const payload = {
       token: session.token,
       listener_experience: session.listenerExperience,
+      listener_age_band: session.listenerAgeBand,
       used_headphones: session.usedHeadphones,
       started_at: session.startedAt,
       finished_at: session.finishedAt,

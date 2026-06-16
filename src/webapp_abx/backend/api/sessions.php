@@ -42,8 +42,8 @@ function sessions_handle_get(): void {
 function sessions_get_all(): void {
     $rows = db_query(
         "SELECT id, started_at, finished_at, total_trials, hits,
-                p_value, d_prime, listener_experience, used_headphones,
-                submitted_at
+                p_value, d_prime, listener_experience, listener_age_band,
+                used_headphones, submitted_at
          FROM sessions
          ORDER BY started_at DESC"
     );
@@ -62,8 +62,8 @@ function sessions_get_all(): void {
 function sessions_get_one(int $id): void {
     $session = db_query_one(
         "SELECT id, started_at, finished_at, total_trials, hits,
-                p_value, d_prime, listener_experience, used_headphones,
-                submitted_at
+                p_value, d_prime, listener_experience, listener_age_band,
+                used_headphones, submitted_at
          FROM sessions
          WHERE id = ?",
         [$id]
@@ -111,6 +111,8 @@ function sessions_handle_post(): void {
     $total_trials        = validation_extract_int($data, "total_trials", min: 1, max: 50);
     $hits                = validation_extract_int($data, "hits", min: 0, max: $total_trials);
     $listener_experience = validation_extract_int($data, "listener_experience", min: 1, max: 5);
+    $listener_age_band   = validation_extract_enum($data, "listener_age_band",
+        ["<18", "18-24", "25-34", "35-44", "45-54", "55+"]);
     $used_headphones     = validation_extract_bool($data, "used_headphones");
     $started_at          = sessions_extract_datetime($data, "started_at");
     $finished_at         = sessions_extract_datetime($data, "finished_at");
@@ -177,18 +179,18 @@ function sessions_handle_post(): void {
     // Grava tudo numa transação ($client_ip já foi obtido acima)
     $new_id = db_transaction(function () use (
         $started_at, $finished_at, $total_trials, $hits,
-        $p_value, $d_prime, $listener_experience, $used_headphones,
-        $client_ip, $validated_trials
+        $p_value, $d_prime, $listener_experience, $listener_age_band,
+        $used_headphones, $client_ip, $validated_trials
     ): int {
         db_execute(
             "INSERT INTO sessions
                 (started_at, finished_at, total_trials, hits,
-                 p_value, d_prime, listener_experience, used_headphones,
-                 client_ip, submitted_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
+                 p_value, d_prime, listener_experience, listener_age_band,
+                 used_headphones, client_ip, submitted_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
             [$started_at, $finished_at, $total_trials, $hits,
-             $p_value, $d_prime, $listener_experience, $used_headphones ? 1 : 0,
-             $client_ip]
+             $p_value, $d_prime, $listener_experience, $listener_age_band,
+             $used_headphones ? 1 : 0, $client_ip]
         );
 
         // lastInsertId reflecte o último INSERT

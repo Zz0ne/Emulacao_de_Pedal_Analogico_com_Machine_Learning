@@ -30,8 +30,10 @@ USE abx_test;
 -- TABELA: sessions
 -- Uma linha por cada sessão ABX submetida. O id é gerado automaticamente
 -- (AUTO_INCREMENT). hits/p_value/d_prime são calculados no frontend (stats.js)
--- e validados no servidor contra os trials submetidos. listener_experience e
--- used_headphones caracterizam o ouvinte, relevante para a validade do teste.
+-- e validados no servidor contra os trials submetidos. listener_experience,
+-- listener_age_band e used_headphones caracterizam o ouvinte, relevante para a
+-- validade do teste. A faixa etária é NULL nas sessões anteriores à sua
+-- introdução; as novas sessões fornecem-na sempre (validado na aplicação).
 
 CREATE TABLE IF NOT EXISTS sessions (
     id                  INT           NOT NULL AUTO_INCREMENT,
@@ -42,6 +44,7 @@ CREATE TABLE IF NOT EXISTS sessions (
     p_value             DECIMAL(8,6)  NULL,
     d_prime             DECIMAL(6,3)  NULL,
     listener_experience TINYINT       NOT NULL,
+    listener_age_band   VARCHAR(8)    NULL,
     used_headphones     BOOLEAN       NOT NULL,
     client_ip           VARCHAR(45)   NULL,
     submitted_at        DATETIME      NOT NULL  DEFAULT CURRENT_TIMESTAMP,
@@ -56,6 +59,8 @@ CREATE TABLE IF NOT EXISTS sessions (
         CHECK (finished_at >= started_at),
     CONSTRAINT chk_listener_experience
         CHECK (listener_experience BETWEEN 1 AND 5),
+    CONSTRAINT chk_listener_age_band
+        CHECK (listener_age_band IN ('<18','18-24','25-34','35-44','45-54','55+')),
 
     -- Acelera a consulta do rate-limiting (submissões recentes por IP).
     INDEX idx_sessions_ip_time (client_ip, submitted_at)

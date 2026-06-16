@@ -33,6 +33,9 @@
   const statTrials = document.getElementById("stat-trials");
   const statDuration = document.getElementById("stat-duration");
 
+  const sampleGrid = document.querySelector(".sample-grid");
+  const trialToast = document.getElementById("trial-toast");
+
   // Estado local
   let session = null;
   let selectedAnswer = null;
@@ -94,14 +97,35 @@
     audioStatusText.textContent = "";
   }
 
+  let toastTimer = null;
+  function flashToast(text) {
+    if (!trialToast) return;
+    trialToast.textContent = text;
+    trialToast.classList.add("show");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      trialToast.classList.remove("show");
+    }, 1100);
+  }
+
+  function animateTrialEnter() {
+    if (!sampleGrid) return;
+    // Remover + forçar reflow reinicia a animação a cada trial.
+    sampleGrid.classList.remove("trial-enter");
+    void sampleGrid.offsetWidth;
+    sampleGrid.classList.add("trial-enter");
+  }
+
   // ---------- Validação do formulário do ouvinte ----------
   function readListener() {
     const exp = listenerForm.querySelector('input[name="experience"]:checked');
     const hp = listenerForm.querySelector('input[name="headphones"]:checked');
-    if (!exp || !hp) return null;
+    const age = listenerForm.querySelector('input[name="age"]:checked');
+    if (!exp || !hp || !age) return null;
     return {
       experience: parseInt(exp.value, 10),
       headphones: hp.value === "yes",
+      ageBand: age.value,
     };
   }
 
@@ -115,6 +139,7 @@
     trialTotal.textContent = pad2(session.totalTrials);
     sessionId.textContent = session.id !== null ? session.id : "—";
     renderProgress();
+    animateTrialEnter();
 
     selectedAnswer = null;
     answerButtons.forEach(function (b) {
@@ -200,6 +225,7 @@
         console.warn("Falha ao submeter a sessão ao servidor:", e.message);
       }
     } else {
+      flashToast("✓ resposta registada");
       loadCurrentTrial();
     }
   }
