@@ -93,6 +93,7 @@ window.AudioPlayer = (function () {
     return {
       stop: function () {
         try {
+          source.onended = null;
           source.stop();
         } catch (e) {
           /* já parou */
