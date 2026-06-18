@@ -100,4 +100,8 @@ nav.site a.active {
     .sample-grid { grid-template-columns: 1fr; }
     .sample-card.x { grid-column: span 1; }
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+    /* Botões de reprodução: só o símbolo (▶/■), um por linha. */
+    .play-btn .play-label { display: none; }
+    .play-icon { font-size: 18px; }
 }

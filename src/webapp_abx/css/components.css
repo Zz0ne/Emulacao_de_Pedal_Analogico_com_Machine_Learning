@@ -292,6 +292,10 @@ code {
 }
 
 .play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 100%;
   padding: 16px;
   font-family: var(--font-mono);
@@ -305,6 +309,10 @@ code {
   transition:
     background var(--transition),
     border-color var(--transition);
+}
+
+.play-icon {
+  line-height: 1;
 }
 
 .play-btn:hover {

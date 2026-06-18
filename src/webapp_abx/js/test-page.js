@@ -67,6 +67,16 @@
     }
   }
 
+  function renderPlayButton(b, playing) {
+    const sample = b.getAttribute("data-sample");
+    const icon = b.querySelector(".play-icon");
+    const label = b.querySelector(".play-label");
+    if (icon) icon.textContent = playing ? "■" : "▶";
+    if (label) {
+      label.textContent = (playing ? "a reproduzir " : "reproduzir ") + sample;
+    }
+  }
+
   function stopCurrent() {
     if (currentPlayback) {
       currentPlayback.stop();
@@ -74,8 +84,7 @@
     }
     playButtons.forEach(function (b) {
       b.classList.remove("playing");
-      const sample = b.getAttribute("data-sample");
-      b.textContent = "▶  reproduzir " + sample;
+      renderPlayButton(b, false);
     });
   }
 
@@ -194,7 +203,7 @@
     if (wasPlaying) return; // segundo clique = parar
 
     btn.classList.add("playing");
-    btn.textContent = "■  a reproduzir " + sample;
+    renderPlayButton(btn, true);
 
     currentPlayback = AudioPlayer.play(audio[sample], function () {
       stopCurrent();
