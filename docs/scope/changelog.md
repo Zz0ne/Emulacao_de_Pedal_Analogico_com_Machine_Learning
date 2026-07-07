@@ -172,13 +172,15 @@
 ## Sem. 15 · 16–20 jun · PREP. DEFESA
 
 **Feito:**  
+- Finalizar o relatório final
 **Bloqueou:**  
 **Próxima semana:**
+- Entrega do relatório final
 
 ---
 
 ## Sem. 16 · 24 jun · ENTREGA FINAL
 
-**Feito:**  
+**Feito:**  Entrega do relatório final
 **Bloqueou:** —  
 **Próxima semana:** — Defesa pública.

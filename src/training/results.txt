@@ -1,0 +1,116 @@
+# Hiperparâmetros
+WINDOW_SIZE = 2048
+TBPTT_CHUNK = 1024
+BATCH_SIZE = 32
+HIDDEN_SIZE = 24
+LEARNING_RATE = 5e-3
+N_EPOCHS = 50
+VAL_RATIO = 0.2
+SEED = 42
+
+Epoch  28/50 | train: 0.020770 | val: 0.019968
+Epoch  29/50 | train: 0.020616 | val: 0.018052
+Epoch  30/50 | train: 0.020231 | val: 0.024011
+Epoch  31/50 | train: 0.020276 | val: 0.018832
+Epoch  32/50 | train: 0.022582 | val: 0.021044
+Epoch  33/50 | train: 0.020601 | val: 0.017985
+Epoch  34/50 | train: 0.019606 | val: 0.022563
+Epoch  35/50 | train: 0.019578 | val: 0.018518
+Epoch  36/50 | train: 0.019602 | val: 0.019121
+Epoch  37/50 | train: 0.019351 | val: 0.020708
+Epoch  38/50 | train: 0.018820 | val: 0.019294
+Epoch  39/50 | train: 0.018349 | val: 0.018059
+Epoch  40/50 | train: 0.017968 | val: 0.021973
+Epoch  41/50 | train: 0.017689 | val: 0.017871
+Epoch  42/50 | train: 0.017486 | val: 0.015413
+Epoch  43/50 | train: 0.017357 | val: 0.016245
+Epoch  44/50 | train: 0.017163 | val: 0.016535
+Epoch  45/50 | train: 0.017079 | val: 0.015494
+Epoch  46/50 | train: 0.016825 | val: 0.016104
+Epoch  47/50 | train: 0.017036 | val: 0.017156
+Epoch  48/50 | train: 0.016886 | val: 0.017860
+Epoch  49/50 | train: 0.016935 | val: 0.015017
+Epoch  50/50 | train: 0.016395 | val: 0.015960
+
+erro ainda estava a converger
+
+# Hiperparâmetros
+WINDOW_SIZE = 2048
+TBPTT_CHUNK = 1024
+BATCH_SIZE = 32
+HIDDEN_SIZE = 24
+LEARNING_RATE = 5e-3
+N_EPOCHS = 200
+VAL_RATIO = 0.2
+SEED = 42
+
+Epoch 168/200 | train: 0.012392 | val: 0.011683
+Epoch 169/200 | train: 0.012506 | val: 0.011737
+Epoch 170/200 | train: 0.012379 | val: 0.013476
+Epoch 171/200 | train: 0.012671 | val: 0.013046
+Epoch 172/200 | train: 0.012471 | val: 0.011294
+Epoch 173/200 | train: 0.012279 | val: 0.011099
+Epoch 174/200 | train: 0.012373 | val: 0.011109
+Epoch 175/200 | train: 0.012500 | val: 0.015561
+Epoch 176/200 | train: 0.012586 | val: 0.012760
+Epoch 177/200 | train: 0.012570 | val: 0.014312
+Epoch 178/200 | train: 0.012428 | val: 0.011531
+Epoch 179/200 | train: 0.012258 | val: 0.011404
+Epoch 180/200 | train: 0.012391 | val: 0.011469
+Epoch 181/200 | train: 0.012446 | val: 0.011391
+Epoch 182/200 | train: 0.012373 | val: 0.012283
+Epoch 183/200 | train: 0.244485 | val: 0.219182
+Epoch 184/200 | train: 0.232014 | val: 0.218420
+Epoch 185/200 | train: 0.232338 | val: 0.218104
+Epoch 186/200 | train: 0.231870 | val: 0.217913
+Epoch 187/200 | train: 0.231683 | val: 0.218565
+Epoch 188/200 | train: 0.231876 | val: 0.222891
+Epoch 189/200 | train: 0.232001 | val: 0.218457
+Epoch 190/200 | train: 0.231994 | val: 0.218751
+Epoch 191/200 | train: 0.231671 | val: 0.220916
+Epoch 192/200 | train: 0.232326 | val: 0.218692
+Epoch 193/200 | train: 0.231440 | val: 0.218749
+Epoch 194/200 | train: 0.231945 | val: 0.217852
+Epoch 195/200 | train: 0.232179 | val: 0.220117
+Epoch 196/200 | train: 0.231499 | val: 0.221417
+Epoch 197/200 | train: 0.231971 | val: 0.218868
+Epoch 198/200 | train: 0.231815 | val: 0.218036
+Epoch 199/200 | train: 0.232131 | val: 0.220050
+Epoch 200/200 | train: 0.232038 | val: 0.218129
+
+erro voltou a subir
+
+
+# Hiperparâmetros
+WINDOW_SIZE = 2048
+TBPTT_CHUNK = 1024
+BATCH_SIZE = 32
+HIDDEN_SIZE = 24
+LEARNING_RATE = 2e-3
+N_EPOCHS = 200
+VAL_RATIO = 0.2
+SEED = 42
+
+Epoch 180/200 | train: 0.013947 | val: 0.012781
+Epoch 181/200 | train: 0.014122 | val: 0.012258
+Epoch 182/200 | train: 0.013734 | val: 0.014659
+Epoch 183/200 | train: 0.013923 | val: 0.012194
+Epoch 184/200 | train: 0.014092 | val: 0.012501
+Epoch 185/200 | train: 0.013819 | val: 0.012077
+Epoch 186/200 | train: 0.013860 | val: 0.012329
+Epoch 187/200 | train: 0.013759 | val: 0.011939
+Epoch 188/200 | train: 0.013472 | val: 0.013979
+Epoch 189/200 | train: 0.013609 | val: 0.011903
+Epoch 190/200 | train: 0.013710 | val: 0.012226
+Epoch 191/200 | train: 0.013908 | val: 0.012556
+Epoch 192/200 | train: 0.013830 | val: 0.012302
+Epoch 193/200 | train: 0.013557 | val: 0.014426
+Epoch 194/200 | train: 0.013630 | val: 0.012363
+Epoch 195/200 | train: 0.013609 | val: 0.016107
+Epoch 196/200 | train: 0.013510 | val: 0.011988
+Epoch 197/200 | train: 0.013590 | val: 0.011849
+Epoch 198/200 | train: 0.013801 | val: 0.011802
+Epoch 199/200 | train: 0.013654 | val: 0.014145
+Epoch 200/200 | train: 0.013512 | val: 0.011972
+
+parece estar preso
